@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="hall.css">
+    <script src="hall.js" type="module" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <a href="../index/index.html" class="logo">Идём<span>в</span>кино</a>
+    </header>
+    <main class="hall">
+        <div class="hall__info">
+            <div class="hall__info-text">
+                <div class="hall__movie-title">Загрузка...</div>
+                <div class="hall__time">Начало сеанса: --:--</div>
+                <div class="hall__title">Зал</div>
+            </div>
+            <div class="hall__hint">
+                <img class="hall__hint-icon" src="../img/hint.png" alt="hint">
+                <span class="hall__hint-text">Тапните дважды, чтобы увеличить</span>
+            </div>
+        </div>
+        <div class="hall__screen-section">
+            <div class="hall__seats-wrapper">
+                <div class="hall__screen-wrapper">
+                    <img class="hall__screen-img" src="../img/buying-scheme__wrapper.png" alt="экран">
+                </div>
+                <div class="hall__seats" id="hall-seats">
+                    <!-- Места генерируются из JS -->
+                </div>
+            </div>
+            <div class="hall__legend">
+                <div class="hall__legend-item">
+                    <div class="hall__legend-seat hall__legend-seat--standart"></div>
+                    <span class="hall__legend-text">Свободно (<span id="price-standart">250</span>руб)</span>
+                </div>
+                <div class="hall__legend-item">
+                    <div class="hall__legend-seat hall__legend-seat--taken"></div>
+                    <span class="hall__legend-text">Занято</span>
+                </div>
+                <div class="hall__legend-item">
+                    <div class="hall__legend-seat hall__legend-seat--vip"></div>
+                    <span class="hall__legend-text">Свободно VIP (<span id="price-vip">350</span>руб)</span>
+                </div>
+                <div class="hall__legend-item">
+                    <div class="hall__legend-seat hall__legend-seat--selected"></div>
+                    <span class="hall__legend-text">Выбрано</span>
+                </div>
+            </div>
+        </div>
+        <div class="hall__booking">
+            <button class="hall__booking-btn" id="booking-btn" disabled>забронировать</button>
+        </div>
+    </main>
+</body>
+
+</html>

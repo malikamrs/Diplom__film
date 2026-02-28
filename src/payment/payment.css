@@ -1,0 +1,230 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../font/OpenSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", "OpenSans", "Arial", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: url('../img/backgroun-cinema.jpg') #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 962px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    line-height: 39px;
+    color: #ffffff;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px;
+}
+
+.logo span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+.payment {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.payment__wrapper {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket {
+    width: 990px;
+    background-color: rgba(241, 235, 230, 0.95);
+    border-radius: 2px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-top: 5px dotted #f3a12b;
+    border-bottom: 5px dotted #f3a12b;
+}
+
+/* Блок с заголовком — без отдельной рамки, граница на .ticket */
+.ticket__top {
+    border: none;
+    padding: 25px 15px;
+    margin: 0;
+}
+
+/* Пунктирный разделитель с полукруглыми вырезами по бокам (как у корешка билета) */
+.ticket__divider {
+    position: relative;
+    height: 0;
+    border-top: 5px dotted #f3a12b;
+    margin: 0;
+}
+
+
+/* Нижняя часть с деталями и кнопкой */
+.ticket__bottom {
+    padding: 24px 32px 28px;
+}
+
+.ticket__header {
+    margin-bottom: 20px;
+}
+
+.ticket__logo {
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #C76F00;
+}
+
+.ticket__logo span {
+    font-weight: 100;
+    color: #000000;
+}
+
+.ticket__body {
+    margin-top: 0;
+}
+
+.ticket__title {
+    font-size: 22px;
+    line-height: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    color: #C76F00;
+}
+
+.ticket__content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.ticket__details {
+    font-size: 16px;
+    line-height: 18.4px;
+    color: #000000;
+    margin-bottom: 280px;
+}
+
+.ticket__row {
+    margin-bottom: 6px;
+}
+
+.ticket__row:last-child {
+    margin-bottom: 0;
+}
+
+.ticket__movie-title {
+    font-weight: 700;
+}
+
+.ticket__value {
+    font-weight: 700;
+}
+
+.ticket__currency {
+    font-weight: 400;
+}
+
+.ticket__actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.ticket__button {
+    min-width: 260px;
+    height: 40px;
+    border-radius: 3px;
+    border: none;
+    background-color: #16A6AF;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.ticket__button:hover {
+    background-color: #25C4CE;
+    transform: scale(1.02);
+}
+
+.ticket__button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.ticket__button:disabled {
+    background-color: #888888;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.ticket__notice {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.ticket__notice--greeting {
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.ticket__notice--top {
+    margin-top: 18px;
+}
+
+.ticket__qr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 24px 8px 8px;
+}
+
+.ticket__qr-canvas {
+    width: 160px;
+    height: 160px;
+}

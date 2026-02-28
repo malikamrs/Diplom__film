@@ -1,0 +1,16 @@
+Я подключила следующие стэк технологии:
+- HTML
+- CSS
+- JavaScript
+- http-server
+- Webpack
+- Babel
+- ESLint
+- Jest
+- Jest Babel
+- Core-js
+- Css-loader
+- Html-webpack-plugin
+- Style-loader
+- Url-loader
+- Webpack-dev-server

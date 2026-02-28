@@ -1,0 +1,539 @@
+@font-face {
+    font-family: 'OpenSans', Roboto;
+    src: url('../font/OpenSans-Regular.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../font/OpenSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "OpenSans", "Roboto", "Arial", sans-serif;
+    list-style: none;
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: url('../img/backgroun-cinema.jpg') #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-size: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 962px;
+    max-height: 39px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.logo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    line-height: 39px;
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+.logo span {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    margin: 0;
+}
+
+.enter {
+    background-color: #16A6AF;
+    color: #fff;
+    padding: 14px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.page-nav {
+    display: flex;
+    max-width: 990px;
+    margin: 15px auto 0;
+    justify-content: center;
+    align-items: center;
+    /* У контейнера нет фона, фон есть у элементов. Отступ сверху 15px */
+}
+
+.page-nav__day {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 124px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect width */
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Цвет #FFFFFF 90% прозрачности */
+    height: 48px;
+    /* Высота как на макете */
+    margin-right: 1px;
+    color: #000000;
+    text-decoration: none;
+    transition: 0.2s;
+    cursor: pointer;
+    border-radius: 2px;
+    /* Скругление углов 2px */
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
+    /* Тени из инспектора */
+}
+
+.page-nav__day:last-child {
+    margin-right: 0;
+}
+
+.page-nav__day_today {
+    font-weight: bold;
+}
+
+.page-nav__day_chosen {
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    /* Поднять над остальными */
+    width: 241px;
+    /* Ширина активного элемента */
+    height: 52px;
+    /* Высота активного элемента */
+    border-radius: 3px;
+    /* Чуть большее скругление */
+    transition: width 0.2s, height 0.2s;
+    /* Плавное изменение размеров */
+    margin-right: 0;
+    /* Убираем отступ справа у выбранного */
+}
+
+/* Класс для элемента перед выбранным, чтобы убрать у него отступ справа */
+.page-nav__day_prev {
+    margin-right: 0;
+}
+
+/* Делаем жирным текст только внутри выбранного элемента (Среда) */
+.page-nav__day_chosen .page-nav__day-week,
+.page-nav__day_chosen .page-nav__day-number {
+    font-weight: 700;
+}
+
+.page-nav__day_weekend {
+    color: #DE2121;
+    /* Красный цвет для выходных */
+}
+
+.page-nav__day-week {
+    font-size: 12px;
+    /* 12px согласно скриншоту */
+    font-weight: 400;
+    /* Обычный шрифт для невыбранных */
+}
+
+.page-nav__day-number {
+    font-size: 12px;
+    /* Возвращаем более крупный размер для цифр */
+    font-weight: 400;
+    /* Обычный шрифт для невыбранных */
+}
+
+.page-nav__day_next {
+    flex-grow: 0;
+    /* Фиксированная ширина */
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    /* Сброс отступа родителя */
+}
+
+.page-nav__day_next::after {
+    content: '>';
+    display: block;
+}
+
+.movie {
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    /* 125px poster + padding + rest */
+    grid-template-rows: min-content 1fr;
+    max-width: 990px;
+    margin: 40px auto 0;
+    align-items: start;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    vertical-align: middle;
+    padding-bottom: 20px;
+}
+
+.movie__poster {
+    width: 125px;
+    height: 175px;
+    padding-left: 15px;
+    padding-top: 14.4px;
+    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.movie__poster::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 14px;
+    background-color: #393939;
+    flex-shrink: 0;
+    margin-left: 0.4px;
+}
+
+.movie__poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.movie__info {
+    color: #000000;
+    padding-top: 14.4px;
+    padding-left: 20px;
+    /* Offset to accommodate the overflowing black bar */
+    position: relative;
+    margin-left: -5px;
+}
+
+.movie__title {
+    display: inline;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+.movie__description {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 10px;
+}
+
+.movie__data {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.movie__data-origin {
+    margin-left: 5px;
+}
+
+.movie__seances {
+    margin-bottom: 30px;
+    grid-column: 1 / -1;
+    padding-left: 15px;
+}
+
+.movie__seances:last-child {
+    margin-bottom: 0;
+}
+
+.movie__seances-hall {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: #000;
+}
+
+.movie__seances-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.movie__seance {
+    width: 53px;
+    height: 33px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.movie__seance:hover {
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.movie__seance-time {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+}
+
+/* Tablet (Планшет: от 768px до 990px) */
+@media screen and (min-width: 768px) and (max-width: 990px) {
+    .header {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .page-nav {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        justify-content: space-between;
+    }
+
+    .page-nav__day {
+        width: auto;
+        flex: 1;
+        padding: 10px 5px;
+    }
+
+    .page-nav__day_chosen {
+        width: auto;
+    }
+
+    .movie {
+        max-width: none;
+        margin: 40px 0 0;
+        display: block;
+        position: relative;
+    }
+
+    .movie__poster {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        width: 125px;
+        height: 175px;
+        padding-left: 0;
+        padding-top: 0;
+        display: block;
+    }
+
+    .movie__poster::after {
+        position: absolute;
+        top: 0;
+        right: -6.4px;
+        margin: 0;
+    }
+
+    .movie__info {
+        padding-top: 15px;
+        padding-left: 155px;
+        padding-right: 15px;
+        margin-left: 0;
+        min-height: 175px;
+    }
+
+    .movie__seances {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+}
+
+/* Mobile (Мобильный: до 767px) */
+@media screen and (max-width: 767px) {
+    .header {
+        padding-left: 14px;
+        padding-right: 10px;
+        padding-top: 14px;
+        max-height: none;
+        /* Убираем ограничение высоты */
+    }
+
+    .logo {
+        font-size: 34px;
+        line-height: 39px;
+    }
+
+    .enter {
+        padding: 12px;
+        font-size: 14px;
+        line-height: 16px;
+        /* Кнопка остаётся в потоке flex, не absolute */
+    }
+
+    .page-nav {
+        margin: 10px 0 0;
+        padding-left: 0;
+        padding-right: 0;
+        box-sizing: border-box;
+        align-items: stretch;
+    }
+
+    .page-nav__day {
+        flex: 1;
+        width: auto;
+        padding: 11px;
+        /* Отступы от краёв как на макете */
+        min-width: 0;
+        margin-right: 1px;
+        font-size: 12px;
+        text-align: left;
+        /* Текст слева, не по центру */
+        height: auto;
+        min-height: 48px;
+    }
+
+    .page-nav__day:last-child {
+        margin-right: 0;
+    }
+
+    .page-nav__day_today {
+        flex: 1.5;
+        /* "Сегодня" длиннее — даём больше места */
+    }
+
+    .page-nav__day_chosen {
+        flex: 1.5;
+        padding: 8px 14px;
+    }
+
+    .page-nav__day_today.page-nav__day_chosen {
+        flex: 2.2;
+        /* "Сегодня" + крупный шрифт — нужно ещё больше места */
+    }
+
+    .page-nav__day_chosen .page-nav__day-week {
+        font-size: 15px;
+        line-height: 17px;
+        font-weight: 700;
+    }
+
+    .page-nav__day_chosen .page-nav__day-number {
+        font-size: 15px;
+        line-height: 17px;
+        font-weight: 700;
+    }
+
+    /* Стрелочка */
+    .page-nav__day_next {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .movie {
+        margin: 30px 0 0;
+        display: block;
+        /* Убираем grid, позиционируем от контейнера */
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .movie__poster {
+        position: absolute;
+        left: 15px;
+        /* Фиксированный отступ от левого края контейнера */
+        top: 15px;
+        /* Фиксированный отступ от верхнего края контейнера */
+        width: 125px;
+        height: 175px;
+        padding-left: 0;
+        padding-top: 0;
+        display: block;
+    }
+
+    /* Черная полоска в мобиле */
+    .movie__poster::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 14px;
+        top: 0;
+        right: -6.4px;
+        margin: 0;
+        background-color: #772720;
+        /* Бордовый цвет */
+        clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
+        /* Скошенный верх */
+    }
+
+    .movie__info {
+        padding-top: 15px;
+        padding-left: 155px;
+        /* Фиксированный отступ от левого края контейнера (10+125+15=150) */
+        padding-right: 15px;
+        /* Фиксированный отступ от правого края контейнера */
+        margin-left: 0;
+        min-height: 185px;
+        /* Минимальная высота чтобы текст не залезал под постер */
+    }
+
+    .movie__title {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .movie__description {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 10px;
+        margin-right: 5px;
+    }
+
+    .movie__data {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .movie__seances {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 0;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .movie__seances-hall {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .movie__seance {
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .movie__seance-time {
+        font-size: 15px;
+        line-height: 17px;
+    }
+}
