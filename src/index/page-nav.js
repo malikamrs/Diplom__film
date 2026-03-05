@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 d.classList.remove('page-nav__day_prev');
             });
 
-            // Add 'chosen' class to the clicked day
             day.classList.add('page-nav__day_chosen');
 
-            // Add 'prev' class to the previous sibling if it exists
             const prevDay = day.previousElementSibling;
             if (prevDay && prevDay.classList.contains('page-nav__day')) {
                 prevDay.classList.add('page-nav__day_prev');

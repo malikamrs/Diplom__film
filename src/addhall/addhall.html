@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление зала | ИдёмВКино</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="addhall.css">
+    <script src="addhall.js" type="module" defer></script>
+</head>
+
+<body>
+    <div class="page-bg"></div>
+
+    <div class="dialog-wrapper">
+        <div class="dialog">
+            <div class="dialog__header">
+                <h2 class="dialog__title">Добавление зала</h2>
+                <button class="dialog__close" id="close-btn" title="Закрыть">✕</button>
+            </div>
+
+            <div class="dialog__body">
+                <form class="dialog__form" id="add-hall-form">
+                    <div class="dialog__field">
+                        <label class="dialog__label" for="hall-name">Название зала</label>
+                        <input type="text" class="dialog__input" id="hall-name" name="hallName"
+                            placeholder="Например, «Зал 1»" required>
+                    </div>
+
+                    <div class="dialog__actions">
+                        <button type="submit" class="dialog__btn dialog__btn-accent" id="submit-btn">
+                            Добавить зал
+                        </button>
+                        <button type="button" class="dialog__btn dialog__btn-regular" id="cancel-btn">
+                            Отменить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

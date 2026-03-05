@@ -17,13 +17,7 @@ export default class ApiService {
         this.baseUrl = baseUrl;
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  ВНУТРЕННИЕ МЕТОДЫ
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * Обёртка над fetch с обработкой стандартной структуры ответа { success, result | error }.
-     *
      * @param {string}  endpoint — путь (например '/alldata')
      * @param {object}  [options] — параметры fetch (method, body и т.д.)
      * @returns {Promise<*>} — содержимое поля result
@@ -52,8 +46,6 @@ export default class ApiService {
     }
 
     /**
-     * Создаёт FormData из объекта ключ-значение.
-     *
      * @param {Object<string, string|number|File>} fields
      * @returns {FormData}
      */
@@ -65,28 +57,14 @@ export default class ApiService {
         return fd;
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  1. ПОЛУЧЕНИЕ ОБЩИХ ДАННЫХ
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * GET /alldata
-     * Возвращает все залы, фильмы и сеансы.
-     *
      * @returns {Promise<{ halls: Array, films: Array, seances: Array }>}
      */
     async getAllData() {
         return this._request('/alldata');
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  2. АВТОРИЗАЦИЯ (АДМИН)
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * POST /login
-     * Авторизация администратора.
-     *
      * @param {string} login — логин (по умолчанию 'shfe-diplom@netology.ru')
      * @param {string} password — пароль (по умолчанию 'shfe-diplom')
      * @returns {Promise<string>} — сообщение об успешной авторизации
@@ -98,14 +76,7 @@ export default class ApiService {
         });
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  3. ЗАЛЫ (HALLS)
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * POST /hall
-     * Добавляет новый кинозал.
-     *
      * @param {string} hallName — название зала
      * @returns {Promise<{ halls: Array }>}
      */
@@ -117,9 +88,6 @@ export default class ApiService {
     }
 
     /**
-     * DELETE /hall/{hallId}
-     * Удаляет кинозал (и все связанные сеансы).
-     *
      * @param {number|string} hallId
      * @returns {Promise<{ halls: Array, seances: Array }>}
      */
@@ -130,9 +98,6 @@ export default class ApiService {
     }
 
     /**
-     * POST /hall/{hallId}
-     * Изменяет конфигурацию посадочных мест в зале.
-     *
      * @param {number|string} hallId
      * @param {number}        rowCount   — кол-во рядов
      * @param {number}        placeCount — кол-во мест в ряду
@@ -152,9 +117,6 @@ export default class ApiService {
     }
 
     /**
-     * POST /price/{hallId}
-     * Изменяет стоимость билетов в зале.
-     *
      * @param {number|string} hallId
      * @param {number}        priceStandart — цена обычного билета
      * @param {number}        priceVip      — цена VIP билета
@@ -171,9 +133,6 @@ export default class ApiService {
     }
 
     /**
-     * POST /open/{hallId}
-     * Открывает или закрывает продажу билетов в зале.
-     *
      * @param {number|string} hallId
      * @param {0|1}           hallOpen — 0 = закрыт, 1 = открыт
      * @returns {Promise<Object>} — обновлённый объект зала
@@ -185,14 +144,7 @@ export default class ApiService {
         });
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  4. ФИЛЬМЫ (FILMS)
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * POST /film
-     * Добавляет новый фильм.
-     *
      * @param {Object}  filmData
      * @param {string}  filmData.filmName        — название
      * @param {number}  filmData.filmDuration    — длительность (мин)
@@ -217,9 +169,6 @@ export default class ApiService {
     }
 
     /**
-     * DELETE /film/{filmId}
-     * Удаляет фильм (и все связанные сеансы).
-     *
      * @param {number|string} filmId
      * @returns {Promise<{ films: Array, seances: Array }>}
      */
@@ -229,14 +178,7 @@ export default class ApiService {
         });
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  5. СЕАНСЫ (SEANCES)
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * POST /seance
-     * Добавляет новый сеанс.
-     *
      * @param {number|string} seanceHallid — ID зала
      * @param {number|string} seanceFilmid — ID фильма
      * @param {string}        seanceTime   — время ('HH:MM')
@@ -254,9 +196,6 @@ export default class ApiService {
     }
 
     /**
-     * DELETE /seance/{seanceId}
-     * Удаляет сеанс.
-     *
      * @param {number|string} seanceId
      * @returns {Promise<{ seances: Array }>}
      */
@@ -266,15 +205,7 @@ export default class ApiService {
         });
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  6. КОНФИГУРАЦИЯ ЗАЛА ДЛЯ КОНКРЕТНОГО СЕАНСА + ДАТА
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * GET /hallconfig?seanceId=...&date=...
-     * Возвращает актуальную схему зала для конкретного сеанса
-     * с учётом уже купленных билетов (места со статусом 'taken').
-     *
      * @param {number|string} seanceId
      * @param {string}        date — формат 'YYYY-MM-DD'
      * @returns {Promise<Array<Array<string>>>} — двумерный массив мест
@@ -283,14 +214,7 @@ export default class ApiService {
         return this._request(`/hallconfig?seanceId=${seanceId}&date=${date}`);
     }
 
-    // ─────────────────────────────────────────────────────────
-    //  7. ПОКУПКА БИЛЕТОВ
-    // ─────────────────────────────────────────────────────────
-
     /**
-     * POST /ticket
-     * Покупает (бронирует) билеты.
-     *
      * @param {number|string} seanceId
      * @param {string}        ticketDate — формат 'YYYY-MM-DD'
      * @param {Array<{row: number, place: number, coast: number}>} tickets

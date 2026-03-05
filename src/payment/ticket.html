@@ -11,7 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="payment.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" defer></script>
-    <script src="ticket.js" type="module" defer></script>
+    <script src="QRCreator.js" type="module" defer></script>
 </head>
 
 <body>
@@ -21,39 +21,45 @@
     <main class="payment">
         <div class="payment__wrapper">
             <section class="ticket">
-                <div class="ticket__header">
-                    <h1 class="ticket__logo">Идём<span>в</span>кино</h1>
+                <div class="ticket__frame">
+                    <div class="ticket__top">
+                        <h2 class="ticket__title">Электронный билет</h2>
+                    </div>
                 </div>
-                <div class="ticket__body">
-                    <h2 class="ticket__title">Электронный билет</h2>
-                    <div class="ticket__content">
-                        <div class="ticket__details">
-                            <p class="ticket__row">
-                                На фильм:
-                                <span class="ticket__movie-title" id="ticket-movie">Загрузка...</span>
-                            </p>
-                            <p class="ticket__row">
-                                Места:
-                                <span class="ticket__value" id="ticket-seats">--</span>
-                            </p>
-                            <p class="ticket__row">
-                                В зале:
-                                <span class="ticket__value" id="ticket-hall">--</span>
-                            </p>
-                            <p class="ticket__row">
-                                Начало сеанса:
-                                <span class="ticket__value" id="ticket-time">--:--</span>
-                            </p>
-                            <p class="ticket__notice ticket__notice--top">
-                                Покажите QR‑код нашему контролёру для подтверждения бронирования.
-                            </p>
-                            <p class="ticket__notice ticket__notice--greeting">
-                                Приятного просмотра!
-                            </p>
+
+                <div class="ticket__frame">
+                    <div class="ticket__bottom">
+                        <div class="ticket__content">
+                            <div class="ticket__details">
+                                <p class="ticket__row">
+                                    На фильм:
+                                    <span class="ticket__movie-title" id="ticket-movie">Загрузка...</span>
+                                </p>
+                                <p class="ticket__row">
+                                    Места:
+                                    <span class="ticket__value" id="ticket-seats">--</span>
+                                </p>
+                                <p class="ticket__row">
+                                    В зале:
+                                    <span class="ticket__value" id="ticket-hall">--</span>
+                                </p>
+                                <p class="ticket__row">
+                                    Начало сеанса:
+                                    <span class="ticket__value" id="ticket-time">--:--</span>
+                                </p>
+                            </div>
+
+                            <div class="ticket__qr">
+                                <img id="ticket-qr-img" class="ticket__qr-img" src="proba.svg" alt="QR-код билета">
+                            </div>
                         </div>
-                        <div class="ticket__qr">
-                            <canvas id="ticket-qr-canvas" class="ticket__qr-canvas"></canvas>
-                        </div>
+
+                        <p class="ticket__notice ticket__notice--top">
+                            Покажите QR‑код нашему контролёру для подтверждения бронирования.
+                        </p>
+                        <p class="ticket__notice ticket__notice--greeting">
+                            Приятного просмотра!
+                        </p>
                     </div>
                 </div>
             </section>
@@ -62,4 +68,3 @@
 </body>
 
 </html>
-

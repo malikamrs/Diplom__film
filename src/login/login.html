@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация | ИдёмВКино</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js" type="module" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <a href="../index/index.html" class="logo">Идём<span>в</span>кино</a>
+        <span class="logo__subtext">Администраторррская</span>
+    </header>
+
+    <main class="login">
+        <section class="login__wrapper">
+            <header class="login__header">
+                <h2 class="login__title">Авторизация</h2>
+            </header>
+            <div class="login__body">
+                <form class="login__form" id="login-form">
+                    <label class="login__label" for="email">
+                        E-mail
+                        <input class="login__input" type="email" id="email" name="email"
+                            placeholder="example@domain.xyz" required>
+                    </label>
+                    <label class="login__label" for="password">
+                        Пароль
+                        <input class="login__input" type="password" id="password" name="password" required>
+                    </label>
+                    <div class="login__actions">
+                        <button class="login__button" type="submit">Авторизоваться</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

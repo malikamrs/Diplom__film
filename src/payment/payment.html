@@ -20,52 +20,53 @@
     <main class="payment">
         <div class="payment__wrapper">
             <section class="ticket">
-                <div class="ticket__body">
+
+                <div class="ticket__frame">
                     <div class="ticket__top">
                         <h2 class="ticket__title">Вы выбрали билеты:</h2>
                     </div>
+                </div>
 
-                    <div class="ticket__divider"></div>
-
+                <div class="ticket__frame">
                     <div class="ticket__bottom">
                         <div class="ticket__details">
                             <p class="ticket__row">
                                 На фильм:
                                 <span class="ticket__movie-title" id="ticket-movie">Загрузка...</span>
                             </p>
-                            <p class="ticket__row">
-                                Места:
-                                <span class="ticket__value" id="ticket-seats">--</span>
-                            </p>
-                            <p class="ticket__row">
-                                В зале:
-                                <span class="ticket__value" id="ticket-hall">--</span>
-                            </p>
-                            <p class="ticket__row">
-                                Начало сеанса:
-                                <span class="ticket__value" id="ticket-time">--:--</span>
-                            </p>
-                            <p class="ticket__row">
-                                Стоимость:
-                                <span class="ticket__value" id="ticket-price">0</span>
-                                <span class="ticket__currency">рублей</span>
-                            </p>
-                        </div>
-
-                        <div class="ticket__actions">
-                            <button class="ticket__button" id="ticket-code-btn">
-                                получить код бронирования
-                            </button>
-                        </div>
-                        <p class="ticket__notice">
-                            После оплаты билет будет доступен в этом окне, а также придёт вам на почту.
-                            Покажите QR‑код нашему контролёру у входа в зал.
+                        <p class="ticket__row">
+                            Места:
+                            <span class="ticket__value" id="ticket-seats">--</span>
                         </p>
-                        <p class="ticket__notice ticket__notice--greeting">
-                            Приятного просмотра!
+                        <p class="ticket__row">
+                            В зале:
+                            <span class="ticket__value" id="ticket-hall">--</span>
+                        </p>
+                        <p class="ticket__row">
+                            Начало сеанса:
+                            <span class="ticket__value" id="ticket-time">--:--</span>
+                        </p>
+                        <p class="ticket__row">
+                            Стоимость:
+                            <span class="ticket__value" id="ticket-price">0</span>
+                            <span class="ticket__currency">рублей</span>
                         </p>
                     </div>
+
+                    <div class="ticket__actions">
+                        <button class="ticket__button" id="ticket-code-btn">
+                            получить код бронирования
+                        </button>
+                    </div>
+                    <p class="ticket__notice">
+                        После оплаты билет будет доступен в этом окне, а также придёт вам на почту.
+                        Покажите QR‑код нашему контролёру у входа в зал.
+                    </p>
+                    <p class="ticket__notice ticket__notice--greeting">
+                        Приятного просмотра!
+                    </p>
                 </div>
+
             </section>
         </div>
     </main>

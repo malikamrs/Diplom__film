@@ -81,7 +81,6 @@ body {
     margin: 15px auto 0;
     justify-content: center;
     align-items: center;
-    /* У контейнера нет фона, фон есть у элементов. Отступ сверху 15px */
 }
 
 .page-nav__day {
@@ -92,20 +91,15 @@ body {
     flex-direction: column;
     padding: 10px 20px;
     box-sizing: border-box;
-    /* Ensure padding doesn't affect width */
     background-color: rgba(255, 255, 255, 0.9);
-    /* Цвет #FFFFFF 90% прозрачности */
     height: 48px;
-    /* Высота как на макете */
     margin-right: 1px;
     color: #000000;
     text-decoration: none;
     transition: 0.2s;
     cursor: pointer;
     border-radius: 2px;
-    /* Скругление углов 2px */
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.24);
-    /* Тени из инспектора */
 }
 
 .page-nav__day:last-child {
@@ -120,25 +114,17 @@ body {
     background-color: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    /* Поднять над остальными */
     width: 241px;
-    /* Ширина активного элемента */
     height: 52px;
-    /* Высота активного элемента */
     border-radius: 3px;
-    /* Чуть большее скругление */
     transition: width 0.2s, height 0.2s;
-    /* Плавное изменение размеров */
     margin-right: 0;
-    /* Убираем отступ справа у выбранного */
 }
 
-/* Класс для элемента перед выбранным, чтобы убрать у него отступ справа */
 .page-nav__day_prev {
     margin-right: 0;
 }
 
-/* Делаем жирным текст только внутри выбранного элемента (Среда) */
 .page-nav__day_chosen .page-nav__day-week,
 .page-nav__day_chosen .page-nav__day-number {
     font-weight: 700;
@@ -146,31 +132,24 @@ body {
 
 .page-nav__day_weekend {
     color: #DE2121;
-    /* Красный цвет для выходных */
 }
 
 .page-nav__day-week {
     font-size: 12px;
-    /* 12px согласно скриншоту */
     font-weight: 400;
-    /* Обычный шрифт для невыбранных */
 }
 
 .page-nav__day-number {
     font-size: 12px;
-    /* Возвращаем более крупный размер для цифр */
     font-weight: 400;
-    /* Обычный шрифт для невыбранных */
 }
 
 .page-nav__day_next {
     flex-grow: 0;
-    /* Фиксированная ширина */
     justify-content: center;
     align-items: center;
     font-size: 20px;
     font-weight: 700;
-    /* Сброс отступа родителя */
 }
 
 .page-nav__day_next::after {
@@ -181,7 +160,6 @@ body {
 .movie {
     display: grid;
     grid-template-columns: 145px 1fr;
-    /* 125px poster + padding + rest */
     grid-template-rows: min-content 1fr;
     max-width: 990px;
     margin: 40px auto 0;
@@ -223,7 +201,6 @@ body {
     color: #000000;
     padding-top: 14.4px;
     padding-left: 20px;
-    /* Offset to accommodate the overflowing black bar */
     position: relative;
     margin-left: -5px;
 }
@@ -300,7 +277,14 @@ body {
     color: #000;
 }
 
-/* Tablet (Планшет: от 768px до 990px) */
+.movie__seance--past {
+    opacity: 0.4;
+    cursor: default;
+    background-color: #f1f1f1;
+    box-shadow: none;
+    pointer-events: none;
+}
+
 @media screen and (min-width: 768px) and (max-width: 990px) {
     .header {
         max-width: none;
@@ -368,14 +352,12 @@ body {
     }
 }
 
-/* Mobile (Мобильный: до 767px) */
 @media screen and (max-width: 767px) {
     .header {
         padding-left: 14px;
         padding-right: 10px;
         padding-top: 14px;
         max-height: none;
-        /* Убираем ограничение высоты */
     }
 
     .logo {
@@ -387,7 +369,6 @@ body {
         padding: 12px;
         font-size: 14px;
         line-height: 16px;
-        /* Кнопка остаётся в потоке flex, не absolute */
     }
 
     .page-nav {
@@ -402,12 +383,10 @@ body {
         flex: 1;
         width: auto;
         padding: 11px;
-        /* Отступы от краёв как на макете */
         min-width: 0;
         margin-right: 1px;
         font-size: 12px;
         text-align: left;
-        /* Текст слева, не по центру */
         height: auto;
         min-height: 48px;
     }
@@ -418,7 +397,6 @@ body {
 
     .page-nav__day_today {
         flex: 1.5;
-        /* "Сегодня" длиннее — даём больше места */
     }
 
     .page-nav__day_chosen {
@@ -428,7 +406,6 @@ body {
 
     .page-nav__day_today.page-nav__day_chosen {
         flex: 2.2;
-        /* "Сегодня" + крупный шрифт — нужно ещё больше места */
     }
 
     .page-nav__day_chosen .page-nav__day-week {
@@ -443,7 +420,6 @@ body {
         font-weight: 700;
     }
 
-    /* Стрелочка */
     .page-nav__day_next {
         font-size: 24px;
         line-height: 28px;
@@ -452,7 +428,6 @@ body {
     .movie {
         margin: 30px 0 0;
         display: block;
-        /* Убираем grid, позиционируем от контейнера */
         position: relative;
         padding-bottom: 15px;
     }
@@ -460,9 +435,7 @@ body {
     .movie__poster {
         position: absolute;
         left: 15px;
-        /* Фиксированный отступ от левого края контейнера */
         top: 15px;
-        /* Фиксированный отступ от верхнего края контейнера */
         width: 125px;
         height: 175px;
         padding-left: 0;
@@ -470,7 +443,6 @@ body {
         display: block;
     }
 
-    /* Черная полоска в мобиле */
     .movie__poster::after {
         content: '';
         position: absolute;
@@ -480,20 +452,15 @@ body {
         right: -6.4px;
         margin: 0;
         background-color: #772720;
-        /* Бордовый цвет */
         clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
-        /* Скошенный верх */
     }
 
     .movie__info {
         padding-top: 15px;
         padding-left: 155px;
-        /* Фиксированный отступ от левого края контейнера (10+125+15=150) */
         padding-right: 15px;
-        /* Фиксированный отступ от правого края контейнера */
         margin-left: 0;
         min-height: 185px;
-        /* Минимальная высота чтобы текст не залезал под постер */
     }
 
     .movie__title {

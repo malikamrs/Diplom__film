@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление фильма | ИдёмВКино</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="addfilm.css">
+    <script src="addfilm.js" type="module" defer></script>
+</head>
+
+<body>
+    <div class="page-bg"></div>
+
+    <div class="dialog-wrapper">
+        <div class="dialog">
+            <div class="dialog__header">
+                <h2 class="dialog__title">Добавление фильма</h2>
+                <button class="dialog__close" id="close-btn" title="Закрыть">✕</button>
+            </div>
+
+            <div class="dialog__body">
+                <form class="dialog__form" id="add-film-form" novalidate>
+                    <div class="dialog__field">
+                        <label class="dialog__label" for="film-name">Название фильма</label>
+                        <input type="text" class="dialog__input" id="film-name" name="filmName"
+                            placeholder="Например, «Гражданин Кейн»" required>
+                    </div>
+
+                    <div class="dialog__field">
+                        <label class="dialog__label" for="film-duration">Продолжительность фильма (мин.)</label>
+                        <input type="number" class="dialog__input" id="film-duration" name="filmDuration" placeholder=""
+                            min="1" max="600" required>
+                    </div>
+
+                    <div class="dialog__field">
+                        <label class="dialog__label" for="film-description">Описание фильма</label>
+                        <textarea class="dialog__input dialog__textarea" id="film-description" name="filmDescription"
+                            placeholder=""></textarea>
+                    </div>
+
+                    <div class="dialog__field">
+                        <label class="dialog__label" for="film-origin">Страна</label>
+                        <input type="text" class="dialog__input" id="film-origin" name="filmOrigin" placeholder="">
+                    </div>
+
+                    <input type="file" id="film-poster-input" name="filePoster" accept="image/png,image/jpeg"
+                        style="display: none;">
+
+                    <div class="dialog__actions">
+                        <button type="submit" class="dialog__btn dialog__btn-accent" id="submit-btn"
+                            style="width: 250px;">
+                            ДОБАВИТЬ ФИЛЬМ
+                        </button>
+                        <button type="button" class="dialog__btn dialog__btn-accent" id="upload-poster-btn"
+                            style="width: 250px;">
+                            ЗАГРУЗИТЬ ПОСТЕР
+                        </button>
+                        <button type="button" class="dialog__btn dialog__btn-regular" id="cancel-btn"
+                            style="width: 150px;">
+                            ОТМЕНИТЬ
+                        </button>
+                    </div>
+
+                    <p class="dialog__poster-hint" id="poster-hint"
+                        style="font-size: 11px; text-align: center; color: #848484;"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

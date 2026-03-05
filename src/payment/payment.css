@@ -32,6 +32,7 @@ body {
     justify-content: space-between;
     align-items: center;
     max-width: 962px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -69,36 +70,102 @@ body {
 }
 
 .ticket {
-    width: 990px;
-    background-color: rgba(241, 235, 230, 0.95);
+    width: 100%;
+    max-width: 990px;
     border-radius: 2px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
     padding: 0;
     position: relative;
-    overflow: hidden;
-    border-top: 5px dotted #f3a12b;
-    border-bottom: 5px dotted #f3a12b;
+    overflow: visible;
+    color: #000000;
 }
 
-/* Блок с заголовком — без отдельной рамки, граница на .ticket */
+.ticket__dotted-line {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.ticket__frame {
+    position: relative;
+    overflow: visible;
+}
+
 .ticket__top {
-    border: none;
+    background-color: rgba(241, 235, 230, 0.95);
     padding: 25px 15px;
     margin: 0;
-}
-
-/* Пунктирный разделитель с полукруглыми вырезами по бокам (как у корешка билета) */
-.ticket__divider {
     position: relative;
-    height: 0;
-    border-top: 5px dotted #f3a12b;
-    margin: 0;
 }
 
+.ticket__top::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background-image: url('../img/dotted__line-before.png');
+    background-repeat: repeat-x;
+    background-position: center left;
+    background-size: 8px 100%;
+    transform: translateY(-100%);
+    z-index: 2;
+    opacity: 0.95;
+}
 
-/* Нижняя часть с деталями и кнопкой */
+.ticket__top::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-image: url('../img/dotted__line-after.png');
+    background-repeat: repeat-x;
+    background-position: center left;
+    background-size: 8px 100%;
+    transform: translateY(100%);
+    z-index: 2;
+    opacity: 0.95;
+}
+
 .ticket__bottom {
-    padding: 24px 32px 28px;
+    background-color: rgba(241, 235, 230, 0.95);
+    margin-top: 6px;
+    padding: 20px 15px;
+    position: relative;
+}
+
+.ticket__bottom::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3px;
+    background-image: url('../img/dotted__line-before.png');
+    background-repeat: repeat-x;
+    background-position: center left;
+    background-size: 8px 100%;
+    transform: translateY(-100%);
+    z-index: 2;
+    opacity: 0.95;
+}
+
+.ticket__bottom::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-image: url('../img/dotted__line-after.png');
+    background-repeat: repeat-x;
+    background-position: center left;
+    background-size: 8px 100%;
+    transform: translateY(100%);
+    z-index: 2;
+    opacity: 0.95;
 }
 
 .ticket__header {
@@ -131,17 +198,18 @@ body {
 }
 
 .ticket__content {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: flex-start;
-    gap: 32px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .ticket__details {
     font-size: 16px;
-    line-height: 18.4px;
-    color: #000000;
-    margin-bottom: 280px;
+    line-height: 1.4;
+    color: #000;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 30px;
 }
 
 .ticket__row {
@@ -167,13 +235,14 @@ body {
 .ticket__actions {
     display: flex;
     justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 .ticket__button {
-    min-width: 260px;
     height: 40px;
     border-radius: 3px;
+    padding: 11.2px 57px 11.9px 57px;
     border: none;
     background-color: #16A6AF;
     color: #ffffff;
@@ -182,12 +251,14 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.8px;
     cursor: pointer;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        0 0 3px rgba(0, 0, 0, 0.12),
+        0 3px 3px rgba(0, 0, 0, 0.24);
     transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .ticket__button:hover {
-    background-color: #25C4CE;
+    background-color: #16A6AF;
     transform: scale(1.02);
 }
 
@@ -203,14 +274,15 @@ body {
 }
 
 .ticket__notice {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #333333;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
 }
 
 .ticket__notice--greeting {
     margin-top: 8px;
-    font-weight: 500;
+    margin-bottom: 10px;
+    font-weight: 300;
 }
 
 .ticket__notice--top {
@@ -219,12 +291,65 @@ body {
 
 .ticket__qr {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 8px 24px 8px 8px;
+    background: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+    margin: 0 auto 30px;
 }
 
-.ticket__qr-canvas {
-    width: 160px;
-    height: 160px;
+.ticket__qr-img {
+    width: 200px !important;
+    height: 200px !important;
+    display: block;
+    object-fit: contain;
+}
+
+@media (min-width: 391px) and (max-width: 768px) {
+    .ticket {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .header {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .ticket {
+        max-width: 95%;
+        margin: 20px auto;
+    }
+
+    .ticket__top {
+        padding: 15px 10px;
+    }
+
+    .ticket__title {
+        font-size: 22px;
+        line-height: 25px;
+    }
+
+    .ticket__details {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .ticket__button {
+        width: 100%;
+        padding: 11.2px 57px 11.9px 57px;
+    }
+
+    .ticket__actions {
+        justify-content: flex-end;
+        margin-right: 57px;
+    }
+
+    .ticket__notice {
+        font-size: 14px;
+        line-height: 16px;
+    }
 }

@@ -2,26 +2,14 @@ import ApiService from '../api/ApiService.js';
 
 const api = new ApiService();
 
-// ── Текущая выбранная дата (по умолчанию — сегодня) ──
 let selectedDate = new Date();
 
-/**
- * Инициализация: генерация навигации по дням и загрузка данных.
- */
 async function init() {
     renderDayNav();
     await loadMovies();
 }
 
-// ─────────────────────────────────────────────────────────
-//  НАВИГАЦИЯ ПО ДНЯМ
-// ─────────────────────────────────────────────────────────
-
 const DAY_NAMES_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-
-/**
- * Рендерит навигацию по дням (6 дней + стрелка).
- */
 function renderDayNav() {
     const nav = document.getElementById('page-nav');
     nav.innerHTML = '';
@@ -36,19 +24,15 @@ function renderDayNav() {
         dayLink.classList.add('page-nav__day');
         dayLink.href = '#';
 
-        // Сегодня
         if (i === 0) {
             dayLink.classList.add('page-nav__day_today');
             dayLink.classList.add('page-nav__day_chosen');
         }
 
-        // Выходные
         const dayOfWeek = date.getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             dayLink.classList.add('page-nav__day_weekend');
         }
-
-        // Контент
         const weekSpan = document.createElement('span');
         weekSpan.classList.add('page-nav__day-week');
         weekSpan.textContent = i === 0 ? 'Сегодня' : `${DAY_NAMES_SHORT[dayOfWeek]},`;
@@ -64,10 +48,8 @@ function renderDayNav() {
         dayLink.appendChild(weekSpan);
         dayLink.appendChild(numberSpan);
 
-        // Сохраняем дату для клика
         dayLink.dataset.date = formatDate(date);
 
-        // Клик — выбрать день
         dayLink.addEventListener('click', (e) => {
             e.preventDefault();
             selectDay(dayLink);
@@ -76,7 +58,6 @@ function renderDayNav() {
         nav.appendChild(dayLink);
     }
 
-    // Стрелка «вперёд»
     const nextLink = document.createElement('a');
     nextLink.classList.add('page-nav__day', 'page-nav__day_next');
     nextLink.href = '#';
@@ -84,9 +65,6 @@ function renderDayNav() {
     nav.appendChild(nextLink);
 }
 
-/**
- * Обработчик выбора дня.
- */
 function selectDay(dayEl) {
     const nav = document.getElementById('page-nav');
     const days = nav.querySelectorAll('.page-nav__day');
@@ -98,32 +76,18 @@ function selectDay(dayEl) {
 
     dayEl.classList.add('page-nav__day_chosen');
 
-    // Добавляем класс предыдущему элементу
     const prevDay = dayEl.previousElementSibling;
     if (prevDay && prevDay.classList.contains('page-nav__day')) {
         prevDay.classList.add('page-nav__day_prev');
     }
-
-    // Обновляем выбранную дату
     selectedDate = new Date(dayEl.dataset.date + 'T00:00:00');
 
-    // Перезагружаем расписание
     loadMovies();
 }
-
-// ─────────────────────────────────────────────────────────
-//  ЗАГРУЗКА ФИЛЬМОВ И СЕАНСОВ
-// ─────────────────────────────────────────────────────────
-
-/**
- * Загружает данные с API и рендерит карточки фильмов.
- */
 async function loadMovies() {
     try {
         const data = await api.getAllData();
         const { halls, films, seances } = data;
-
-        // Показываем только открытые залы
         const openHalls = halls.filter((h) => h.hall_open === 1);
 
         if (openHalls.length === 0) {
@@ -131,11 +95,9 @@ async function loadMovies() {
             return;
         }
 
-        // Фильтруем сеансы: только для открытых залов
         const openHallIds = new Set(openHalls.map((h) => h.id));
         const activeSeances = seances.filter((s) => openHallIds.has(s.seance_hallid));
 
-        // Группируем сеансы по фильмам
         const filmSeancesMap = new Map();
         activeSeances.forEach((seance) => {
             if (!filmSeancesMap.has(seance.seance_filmid)) {
@@ -144,7 +106,6 @@ async function loadMovies() {
             filmSeancesMap.get(seance.seance_filmid).push(seance);
         });
 
-        // Рендерим только фильмы, у которых есть сеансы
         const filmsWithSeances = films.filter((f) => filmSeancesMap.has(f.id));
 
         if (filmsWithSeances.length === 0) {
@@ -159,9 +120,6 @@ async function loadMovies() {
     }
 }
 
-/**
- * Рендерит карточки фильмов.
- */
 function renderMovies(films, filmSeancesMap, halls) {
     const container = document.getElementById('movies-container');
     container.innerHTML = '';
@@ -173,7 +131,6 @@ function renderMovies(films, filmSeancesMap, halls) {
     films.forEach((film) => {
         const seances = filmSeancesMap.get(film.id) || [];
 
-        // Группируем сеансы по залам
         const hallSeancesMap = new Map();
         seances.forEach((s) => {
             if (!hallSeancesMap.has(s.seance_hallid)) {
@@ -185,16 +142,14 @@ function renderMovies(films, filmSeancesMap, halls) {
         const section = document.createElement('section');
         section.classList.add('movie');
 
-        // ── Постер ──
         const posterDiv = document.createElement('div');
         posterDiv.classList.add('movie__poster');
         const posterImg = document.createElement('img');
-        posterImg.src = film.film_poster || '../img/alpha.jpg';
+        posterImg.src = '../img/The-Star-Wars.jpg';
         posterImg.alt = film.film_name;
         posterDiv.appendChild(posterImg);
         section.appendChild(posterDiv);
 
-        // ── Информация ──
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('movie__info');
 
@@ -226,12 +181,9 @@ function renderMovies(films, filmSeancesMap, halls) {
         infoDiv.appendChild(dataP);
         section.appendChild(infoDiv);
 
-        // ── Сеансы по залам ──
         halls.forEach((hall) => {
             const hallSeances = hallSeancesMap.get(hall.id);
             if (!hallSeances || hallSeances.length === 0) return;
-
-            // Сортируем сеансы по времени
             hallSeances.sort((a, b) => a.seance_time.localeCompare(b.seance_time));
 
             const seancesDiv = document.createElement('div');
@@ -250,7 +202,6 @@ function renderMovies(films, filmSeancesMap, halls) {
                 link.classList.add('movie__seance');
                 link.href = `../hall/hall.html?seanceId=${seance.id}&date=${dateStr}`;
 
-                // Если сегодня — деактивируем прошедшие сеансы
                 if (isToday) {
                     const [hours, minutes] = seance.seance_time.split(':').map(Number);
                     const seanceDate = new Date(selectedDate);
@@ -279,9 +230,6 @@ function renderMovies(films, filmSeancesMap, halls) {
     });
 }
 
-/**
- * Показывает сообщение при отсутствии данных.
- */
 function renderNoData(message) {
     const container = document.getElementById('movies-container');
     container.innerHTML = `
@@ -291,13 +239,6 @@ function renderNoData(message) {
   `;
 }
 
-// ─────────────────────────────────────────────────────────
-//  УТИЛИТЫ
-// ─────────────────────────────────────────────────────────
-
-/**
- * Форматирует дату в YYYY-MM-DD.
- */
 function formatDate(date) {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -305,5 +246,4 @@ function formatDate(date) {
     return `${y}-${m}-${d}`;
 }
 
-// ── Запуск ──
 init();
