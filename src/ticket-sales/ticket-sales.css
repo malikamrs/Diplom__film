@@ -26,7 +26,7 @@ body {
     width: 100%;
     max-width: 972px;
     height: 120px;
-    padding: 35px 0 35px 104px;
+    padding: 35px 42px 35px 104px;
     margin: 0 auto;
 }
 
@@ -47,6 +47,7 @@ body {
 .logo__subtext {
     color: #fff;
     font-size: 10px;
+    line-height: 12px;
     text-transform: uppercase;
     letter-spacing: 5px;
     font-weight: 400;
@@ -81,6 +82,15 @@ body {
     display: none;
 }
 
+.conf-step:first-of-type::before {
+    top: 48px;
+}
+
+.conf-step:first-of-type .conf-step__header {
+    background-size: 2px 50%;
+    background-position: 65px bottom;
+}
+
 .conf-step__header {
     background-color: #63536C;
     background-image: linear-gradient(#BC95D6, #BC95D6);
@@ -100,6 +110,7 @@ body {
 .conf-step:last-of-type .conf-step__header {
     background-size: 2px 50%;
 }
+
 .conf-step__header::before {
     content: '';
     position: absolute;
@@ -111,7 +122,7 @@ body {
     background-color: #FFFFFF;
     border-radius: 50%;
     z-index: 3;
-    box-shadow: 0 0 0 4px #BC95D6;
+    box-shadow: inset 0 0 0 4px #BC95D6;
 }
 
 .conf-step__title {
@@ -154,12 +165,13 @@ body {
     font-size: 16px;
     line-height: 18px;
     font-weight: 400;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     color: #000;
 }
 
 .conf-step__list {
     list-style: none;
+    margin-left: 10px;
     margin-bottom: 25px;
     font-size: 16px;
     font-weight: 500;
@@ -182,7 +194,7 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.12), 0 3px 3px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
 .conf-step__button {
@@ -193,8 +205,15 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.12), 0 3px 3px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
     transition: background-color 0.2s;
+}
+
+.conf-step__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
 }
 
 .conf-step__button-regular {
@@ -224,7 +243,11 @@ body {
     display: flex;
     align-items: center;
     list-style: none;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+#sales-hall-selectors {
+    margin-top: 30px;
 }
 
 .conf-step__radio {
@@ -258,7 +281,7 @@ body {
     line-height: 16px;
     font-weight: 900;
     padding: 15.41px 23.03px 13.9px 23.1px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
     opacity: 1;
 }
 
@@ -266,7 +289,7 @@ body {
     display: flex;
     align-items: flex-end;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
 .conf-step__label {
@@ -278,7 +301,7 @@ body {
     width: 100px;
 }
 
-.conf-step__legend-value {
+.conf-step__multiplier {
     display: block;
     width: 10px;
     height: 21px;
@@ -333,6 +356,7 @@ body {
     margin-top: 11px;
     padding: 64px 36px;
     position: relative;
+    overflow-x: auto;
 }
 
 .conf-step__hall::before {
@@ -428,7 +452,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 13px;
     margin-bottom: 30px;
 }
 
@@ -527,9 +551,11 @@ body {
     position: absolute;
     top: 10px;
     bottom: 10px;
+    padding: 10px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     border: 1px solid #848484;
     box-sizing: border-box;
     cursor: pointer;
@@ -545,8 +571,7 @@ body {
     line-height: 1.2;
     word-break: break-word;
     white-space: normal;
-    padding: 0 5px;
-    text-align: center;
+    text-align: left;
 }
 
 .conf-step__timeline-labels {
@@ -557,7 +582,7 @@ body {
 
 .conf-step__time-label {
     position: absolute;
-    font-size: 10px;
+    font-size: 12px;
     color: #848484;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -678,7 +703,15 @@ body {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 10px;
+    margin-top: 25px;
+}
+
+.modal__footer .conf-step__button {
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .conf-step__movie[draggable="true"],
@@ -695,24 +728,18 @@ body {
     background-color: rgba(22, 166, 175, 0.2);
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 900px) {
 
-    .header,
-    .admin-content {
+    .header {
         width: 100%;
-        max-width: 972px;
-        padding-left: 20px;
-        padding-right: 20px;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .header {
         width: 100%;
         height: auto;
-        padding: 20px 0;
-        text-align: center;
-        margin-bottom: 0;
+        padding: 35px 42px 35px 104px;
     }
 
     .admin-content {
@@ -725,44 +752,171 @@ body {
         display: none;
     }
 
-    .conf-step__header {
-        padding-left: 20px;
-        padding-right: 15px;
-        background-image: none;
+    .conf-step:first-of-type::before {
+        display: none;
     }
 
-    .conf-step__wrapper {
-        padding-left: 20px;
-        padding-right: 15px;
-        padding-top: 25px;
+    .conf-step:first-of-type .conf-step__header {
+        background-size: 0;
+    }
+
+    .conf-step__header {
+        padding: 20px;
+        gap: 20px;
+        background-image: none;
     }
 
     .conf-step__header::before {
         position: static;
         transform: none;
-        margin-right: 15px;
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
         background-color: #fff;
-        box-shadow: inset 0 0 0 6px #BC95D6;
-        border: 1px solid #BC95D6;
+        box-shadow: inset 0 0 0 4px #BC95D6;
     }
 
     .conf-step__title {
-        font-size: 14px;
         white-space: normal;
-        line-height: 1.2;
         flex-grow: 1;
     }
 
-    .logo {
-        font-size: 22px;
+    .conf-step__wrapper {
+        padding: 30px;
     }
 
-    .logo__subtext {
-        font-size: 8px;
-        letter-spacing: 1px;
+    .conf-step__list {
+        margin-left: 10px;
     }
+
+    .conf-step__selectors-list {
+        flex-wrap: wrap;
+    }
+
+    #sales-paragraph {
+        margin-bottom: 30px;
+    }
+
+    #sales-hall-selectors {
+        margin-top: 15px;
+    }
+
+    .conf-step__selector {
+        width: 81px;
+        height: 42px;
+        font-size: 14px;
+        padding: 12.2px 20.25px;
+    }
+
+    .conf-step__radio:checked+.conf-step__selector {
+        width: 90px;
+        height: 46px;
+        font-size: 15px;
+        padding: 15.41px 22.03px;
+    }
+
+    .conf-step__legend {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .conf-step__label {
+        width: 90px;
+    }
+
+    .conf-step__input {
+        width: 90px;
+        height: 34px;
+    }
+
+    .conf-step__legend-chairs {
+        gap: 12px;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .conf-step__legend-item {
+        gap: 6px;
+    }
+
+    .conf-step__hall {
+        overflow-x: auto;
+        padding-top: 64px;
+        padding-bottom: 36px;
+    }
+
+    .conf-step__hall::before {
+        font-size: 12px;
+        letter-spacing: 12px;
+        margin-right: -12px;
+        top: 15px;
+    }
+
+    .conf-step__chair {
+        width: 22px;
+        height: 22px;
+    }
+
+    .conf-step__buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+
+    .conf-step__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 12px 32px;
+    }
+
+    #add-film-btn {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .conf-step__button-regular {
+        width: auto;
+        min-width: 100px;
+    }
+
+    .conf-step__button-accent {
+        width: auto;
+        min-width: 140px;
+    }
+
+    .conf-step__price-wrapper {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .conf-step__movies {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .conf-step__movie {
+        width: 260px;
+        height: 52px;
+    }
+
+    .conf-step__movie-title {
+        white-space: normal;
+    }
+
+    .conf-step__timelines {
+        margin: 0;
+    }
+
+    .conf-step__timeline-bar {
+        height: 50px;
+    }
+
 
     .conf-step__button-sales {
         width: 100%;

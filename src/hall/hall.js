@@ -1,4 +1,5 @@
 import ApiService from '../api/ApiService.js';
+import showAlert from '../api/Alert.js';
 
 const api = new ApiService();
 
@@ -132,7 +133,7 @@ function fillInfoFromParams() {
 
   if (movieTitleEl) movieTitleEl.textContent = movieParam || 'Фильм';
   if (timeEl) timeEl.textContent = `Начало сеанса: ${timeParam || '--:--'}`;
-  if (hallTitleEl) hallTitleEl.textContent = hallParam || 'Зал';
+  if (hallTitleEl) hallTitleEl.textContent = toProperCase(hallParam || 'Зал');
 }
 
 function updatePrices() {
@@ -167,10 +168,10 @@ function renderSeats(config) {
         seat.addEventListener('click', () => toggleSeat(seat));
       }
 
-      rowEl.appendChild(seat);
+      rowEl.append(seat);
     });
 
-    container.appendChild(rowEl);
+    container.append(rowEl);
   });
 }
 
@@ -254,7 +255,7 @@ function setupBookingButton() {
       window.location.href = '../payment/payment.html';
     } catch (err) {
       console.error('Ошибка при покупке билетов:', err);
-      alert('Ошибка при бронировании: ' + err.message);
+      showAlert('Ошибка при бронировании: ' + err.message);
       btn.disabled = false;
       btn.textContent = 'ЗАБРОНИРОВАТЬ';
     }

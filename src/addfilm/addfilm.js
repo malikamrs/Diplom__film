@@ -1,4 +1,5 @@
 import ApiService from '../api/ApiService.js';
+import showAlert from '../api/Alert.js';
 
 const api = new ApiService();
 
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await api.addFilm({ filmName, filmDuration, filmDescription, filmOrigin, filePoster });
             window.location.href = BACK_URL;
         } catch (err) {
-            alert('Ошибка при добавлении фильма: ' + err.message);
+            showAlert('Ошибка при добавлении фильма: ' + err.message);
             submitBtn.disabled = false;
             submitBtn.textContent = 'Добавить фильм';
         }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о билете</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", "Arial", sans-serif;
+        }
+
+        body {
+            background: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .ticket-info {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .ticket-info__header {
+            background: linear-gradient(135deg, #C76F00, #e8920e);
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .ticket-info__logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .ticket-info__logo span {
+            font-weight: 100;
+        }
+
+        .ticket-info__body {
+            padding: 24px;
+        }
+
+        .ticket-info__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #C76F00;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ticket-info__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0ebe6;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .ticket-info__row:last-of-type {
+            border-bottom: none;
+        }
+
+        .ticket-info__label {
+            color: #666;
+            font-weight: 400;
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        .ticket-info__value {
+            color: #000;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .ticket-info__footer {
+            background: #f9f5f0;
+            padding: 16px 24px;
+            text-align: center;
+        }
+
+        .ticket-info__notice {
+            font-size: 13px;
+            font-weight: 500;
+            color: #c0392b;
+            line-height: 1.5;
+        }
+
+        .ticket-info__greeting {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ticket-info">
+        <div class="ticket-info__header">
+            <div class="ticket-info__logo">Идём<span>в</span>кино</div>
+        </div>
+        <div class="ticket-info__body">
+            <h1 class="ticket-info__title">Электронный билет</h1>
+
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Фильм:</span>
+                <span class="ticket-info__value" id="info-film">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Дата:</span>
+                <span class="ticket-info__value" id="info-date">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Время:</span>
+                <span class="ticket-info__value" id="info-time">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Зал:</span>
+                <span class="ticket-info__value" id="info-hall">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Ряд:</span>
+                <span class="ticket-info__value" id="info-row">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Место:</span>
+                <span class="ticket-info__value" id="info-place">—</span>
+            </div>
+            <div class="ticket-info__row">
+                <span class="ticket-info__label">Стоимость:</span>
+                <span class="ticket-info__value" id="info-cost">—</span>
+            </div>
+        </div>
+        <div class="ticket-info__footer">
+            <p class="ticket-info__notice">Билет действителен строго на свой сеанс</p>
+            <p class="ticket-info__greeting">Приятного просмотра!</p>
+        </div>
+    </div>
+
+    <script>
+        var params = new URLSearchParams(window.location.search);
+
+        var filmEl = document.getElementById('info-film');
+        var dateEl = document.getElementById('info-date');
+        var timeEl = document.getElementById('info-time');
+        var hallEl = document.getElementById('info-hall');
+        var rowEl = document.getElementById('info-row');
+        var placeEl = document.getElementById('info-place');
+        var costEl = document.getElementById('info-cost');
+
+        if (filmEl) filmEl.textContent = params.get('film') || '—';
+        if (dateEl) dateEl.textContent = params.get('date') || '—';
+        if (timeEl) timeEl.textContent = params.get('time') || '—';
+        if (hallEl) hallEl.textContent = params.get('hall') || '—';
+        if (rowEl) rowEl.textContent = params.get('row') || '—';
+        if (placeEl) placeEl.textContent = params.get('place') || '—';
+        if (costEl) costEl.textContent = (params.get('cost') || '0') + ' руб.';
+    </script>
+</body>
+
+</html>

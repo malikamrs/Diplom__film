@@ -3,6 +3,8 @@ import ApiService from '../api/ApiService.js';
 const api = new ApiService();
 
 let selectedDate = new Date();
+let startDateOffset = 0;
+
 
 async function init() {
     renderDayNav();
@@ -16,37 +18,59 @@ function renderDayNav() {
 
     const today = new Date();
 
+    if (startDateOffset > 0) {
+        const prevLink = document.createElement('a');
+        prevLink.classList.add('page-nav__day', 'page-nav__day_prev-arrow');
+        prevLink.href = '#';
+        prevLink.textContent = '<'; // Добавляем символ
+        prevLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            startDateOffset--;
+            const newDate = new Date();
+            newDate.setDate(newDate.getDate() + startDateOffset);
+            selectedDate = newDate;
+            renderDayNav();
+            loadMovies();
+        });
+        nav.append(prevLink);
+    }
+
     for (let i = 0; i < 6; i++) {
         const date = new Date(today);
-        date.setDate(today.getDate() + i);
+        date.setDate(today.getDate() + i + startDateOffset);
 
         const dayLink = document.createElement('a');
         dayLink.classList.add('page-nav__day');
         dayLink.href = '#';
 
-        if (i === 0) {
-            dayLink.classList.add('page-nav__day_today');
+        if (formatDate(date) === formatDate(selectedDate)) {
             dayLink.classList.add('page-nav__day_chosen');
+        }
+
+        const isRealToday = i + startDateOffset === 0;
+        if (isRealToday) {
+            dayLink.classList.add('page-nav__day_today');
         }
 
         const dayOfWeek = date.getDay();
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             dayLink.classList.add('page-nav__day_weekend');
         }
+
         const weekSpan = document.createElement('span');
         weekSpan.classList.add('page-nav__day-week');
-        weekSpan.textContent = i === 0 ? 'Сегодня' : `${DAY_NAMES_SHORT[dayOfWeek]},`;
+        weekSpan.textContent = isRealToday ? 'Сегодня' : `${DAY_NAMES_SHORT[dayOfWeek]},`;
 
         const numberSpan = document.createElement('span');
         numberSpan.classList.add('page-nav__day-number');
-        if (i === 0) {
+        if (isRealToday) {
             numberSpan.textContent = `${DAY_NAMES_SHORT[dayOfWeek]}, ${date.getDate()}`;
         } else {
             numberSpan.textContent = String(date.getDate());
         }
 
-        dayLink.appendChild(weekSpan);
-        dayLink.appendChild(numberSpan);
+        dayLink.append(weekSpan);
+        dayLink.append(numberSpan);
 
         dayLink.dataset.date = formatDate(date);
 
@@ -55,14 +79,29 @@ function renderDayNav() {
             selectDay(dayLink);
         });
 
-        nav.appendChild(dayLink);
+        nav.append(dayLink);
     }
 
     const nextLink = document.createElement('a');
     nextLink.classList.add('page-nav__day', 'page-nav__day_next');
     nextLink.href = '#';
-    nextLink.addEventListener('click', (e) => e.preventDefault());
-    nav.appendChild(nextLink);
+    nextLink.textContent = '>';
+    nextLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        startDateOffset++;
+        const newDate = new Date();
+        newDate.setDate(newDate.getDate() + startDateOffset);
+        selectedDate = newDate;
+        renderDayNav();
+        loadMovies();
+    });
+    nav.append(nextLink);
+
+    if (startDateOffset > 0) {
+        nav.classList.add('page-nav_double-arrows');
+    } else {
+        nav.classList.remove('page-nav_double-arrows');
+    }
 }
 
 function selectDay(dayEl) {
@@ -147,8 +186,8 @@ function renderMovies(films, filmSeancesMap, halls) {
         const posterImg = document.createElement('img');
         posterImg.src = '../img/The-Star-Wars.jpg';
         posterImg.alt = film.film_name;
-        posterDiv.appendChild(posterImg);
-        section.appendChild(posterDiv);
+        posterDiv.append(posterImg);
+        section.append(posterDiv);
 
         const infoDiv = document.createElement('div');
         infoDiv.classList.add('movie__info');
@@ -156,13 +195,13 @@ function renderMovies(films, filmSeancesMap, halls) {
         const title = document.createElement('h2');
         title.classList.add('movie__title');
         title.textContent = film.film_name;
-        infoDiv.appendChild(title);
+        infoDiv.append(title);
 
         if (film.film_description) {
             const desc = document.createElement('p');
             desc.classList.add('movie__description');
             desc.textContent = film.film_description;
-            infoDiv.appendChild(desc);
+            infoDiv.append(desc);
         }
 
         const dataP = document.createElement('p');
@@ -171,15 +210,15 @@ function renderMovies(films, filmSeancesMap, halls) {
         const durationSpan = document.createElement('span');
         durationSpan.classList.add('movie__data-duration');
         durationSpan.textContent = `${film.film_duration} минут`;
-        dataP.appendChild(durationSpan);
+        dataP.append(durationSpan);
 
         const originSpan = document.createElement('span');
         originSpan.classList.add('movie__data-origin');
         originSpan.textContent = film.film_origin || '';
-        dataP.appendChild(originSpan);
+        dataP.append(originSpan);
 
-        infoDiv.appendChild(dataP);
-        section.appendChild(infoDiv);
+        infoDiv.append(dataP);
+        section.append(infoDiv);
 
         halls.forEach((hall) => {
             const hallSeances = hallSeancesMap.get(hall.id);
@@ -191,8 +230,9 @@ function renderMovies(films, filmSeancesMap, halls) {
 
             const hallTitle = document.createElement('h3');
             hallTitle.classList.add('movie__seances-hall');
-            hallTitle.textContent = hall.hall_name;
-            seancesDiv.appendChild(hallTitle);
+            const capitalizedName = hall.hall_name.charAt(0).toUpperCase() + hall.hall_name.slice(1);
+            hallTitle.textContent = capitalizedName;
+            seancesDiv.append(hallTitle);
 
             const seancesList = document.createElement('div');
             seancesList.classList.add('movie__seances-list');
@@ -217,16 +257,16 @@ function renderMovies(films, filmSeancesMap, halls) {
                 const timeSpan = document.createElement('span');
                 timeSpan.classList.add('movie__seance-time');
                 timeSpan.textContent = seance.seance_time;
-                link.appendChild(timeSpan);
+                link.append(timeSpan);
 
-                seancesList.appendChild(link);
+                seancesList.append(link);
             });
 
-            seancesDiv.appendChild(seancesList);
-            section.appendChild(seancesDiv);
+            seancesDiv.append(seancesList);
+            section.append(seancesDiv);
         });
 
-        container.appendChild(section);
+        container.append(section);
     });
 }
 

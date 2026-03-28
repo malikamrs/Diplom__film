@@ -4,25 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Администраторская | ИдёмВКино</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ИдемВКино</title>
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="ticket-sales.css">
-    <script src="ticket-sales.js" type="module" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header class="header">
-        <a href="../index/index.html" class="logo">Идём<span>в</span>кино</a>
-        <span class="logo__subtext">Администраторская</span>
+        <h1 class="logo">Идём<span>В</span>Кино<br><span class="logo__subtext">Администраторррская</span></h1>
     </header>
 
     <main class="admin-content">
         <section class="conf-step">
             <header class="conf-step__header conf-step__header_opened">
-                <h2 class="conf-step__title">Управление залами</h2>
+                <h2 class="conf-step__title">управление залами</h2>
             </header>
             <div class="conf-step__wrapper">
                 <p class="conf-step__paragraph">Доступные залы:</p>
@@ -31,9 +28,10 @@
                 <button class="conf-step__button conf-step__button-accent" id="create-hall-btn">Создать зал</button>
             </div>
         </section>
+
         <section class="conf-step">
             <header class="conf-step__header conf-step__header_opened">
-                <h2 class="conf-step__title">Конфигурация залов</h2>
+                <h2 class="conf-step__title">конфигурация залов</h2>
             </header>
             <div class="conf-step__wrapper">
                 <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
@@ -41,104 +39,117 @@
                 </ul>
                 <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
                 <div class="conf-step__legend">
-                    <label class="conf-step__label">Рядов, шт<input type="number" class="conf-step__input"
-                            id="input-rows" placeholder="10" value="10"></label>
-                    <span class="conf-step__legend-value">x</span>
-                    <label class="conf-step__label">Мест, шт<input type="number" class="conf-step__input"
-                            id="input-places" placeholder="8" value="8"></label>
+                    <label class="conf-step__label">Рядов, шт
+                        <input type="number" class="conf-step__input" placeholder="10" id="input-rows" min="1"></label>
+                    <span class="conf-step__multiplier">x</span>
+                    <label class="conf-step__label">Мест, шт
+                        <input type="number" class="conf-step__input" placeholder="8" id="input-places" min="1"></label>
                 </div>
                 <p class="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
                 <div class="conf-step__legend-chairs">
                     <div class="conf-step__legend-item"><span class="conf-step__chair conf-step__chair_standart"></span>
                         — обычные кресла</div>
                     <div class="conf-step__legend-item"><span class="conf-step__chair conf-step__chair_vip"></span> —
-                        VIP кресла</div>
+                        VIP
+                        кресла</div>
                     <div class="conf-step__legend-item"><span class="conf-step__chair conf-step__chair_disabled"></span>
-                        — заблокированные (нет кресла)</div>
+                        — заблокированные (нет кресла)
+                    </div>
                 </div>
-                <p class="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
+                <p class="conf-step__hint">Чтобы изменить вид кресла, нажимайте по нему</p>
 
                 <div class="conf-step__hall">
                     <div class="conf-step__hall-wrapper" id="hall-config-wrapper">
                     </div>
                 </div>
 
-                <fieldset class="conf-step__buttons conf-step__buttons_centered">
-                    <button class="conf-step__button conf-step__button-regular">Отмена</button>
-                    <button class="conf-step__button conf-step__button-accent" id="save-hall-config">Сохранить</button>
-                </fieldset>
+                <div class="conf-step__buttons">
+                    <button class="conf-step__button conf-step__button-regular" id="cancel-hall-config">ОТМЕНА</button>
+                    <button class="conf-step__button conf-step__button-accent" id="save-hall-config">СОХРАНИТЬ</button>
+                </div>
             </div>
         </section>
 
         <section class="conf-step">
             <header class="conf-step__header conf-step__header_opened">
-                <h2 class="conf-step__title">Конфигурация цен</h2>
+                <h2 class="conf-step__title">конфигурация цен</h2>
             </header>
             <div class="conf-step__wrapper">
                 <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
                 <ul class="conf-step__selectors-list" id="price-hall-selectors">
                 </ul>
                 <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
-                <div class="conf-step__price-wrapper">
-                    <label class="conf-step__label">Цена, рублей<input type="number"
-                            class="conf-step__input conf-step__input_standard" id="price-standard"
-                            placeholder="0"></label>
-                    <span class="conf-step__price-info conf-step__price-info_standard">за <span
-                            class="conf-step__chair conf-step__chair_standart"></span> обычные кресла</span>
+                <div class="conf-step__price-legend">
+                    <div class="conf-step__price-wrapper">
+                        <label class="conf-step__label">Цена, рублей
+                            <input type="number" class="conf-step__input conf-step__input_standard" placeholder="0" id="price-standard" min="0">
+                        </label>
+                        <div class="conf-step__price-info conf-step__price-info_standard">
+                            за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
+                        </div>
+                    </div>
+                    <div class="conf-step__price-wrapper">
+                        <label class="conf-step__label">Цена, рублей
+                            <input type="number" class="conf-step__input conf-step__input_vip" placeholder="0" id="price-vip" min="0">
+                        </label>
+                        <div class="conf-step__price-info conf-step__price-info_vip">
+                            за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
+                        </div>
+                    </div>
                 </div>
-                <div class="conf-step__price-wrapper">
-                    <label class="conf-step__label">Цена, рублей<input type="number"
-                            class="conf-step__input conf-step__input_vip" id="price-vip" placeholder="350"
-                            value="350"></label>
-                    <span class="conf-step__price-info conf-step__price-info_vip">за <span
-                            class="conf-step__chair conf-step__chair_vip"></span> VIP кресла</span>
+                <div class="conf-step__buttons">
+                    <button class="conf-step__button conf-step__button-regular" id="cancel-hall-prices">ОТМЕНА</button>
+                    <button class="conf-step__button conf-step__button-accent" id="save-hall-prices">СОХРАНИТЬ</button>
                 </div>
-                <fieldset class="conf-step__buttons conf-step__buttons_centered">
-                    <button class="conf-step__button conf-step__button-regular">Отмена</button>
-                    <button class="conf-step__button conf-step__button-accent" id="save-hall-prices">Сохранить</button>
-                </fieldset>
             </div>
         </section>
 
         <section class="conf-step">
             <header class="conf-step__header conf-step__header_opened">
-                <h2 class="conf-step__title">Сетка сеансов</h2>
+                <h2 class="conf-step__title">сетка сеансов</h2>
             </header>
             <div class="conf-step__wrapper">
-                <button class="conf-step__button conf-step__button-accent" id="add-film-btn">Добавить фильм</button>
+                <p class="conf-step__paragraph">
+                    <button class="conf-step__button conf-step__button-accent" id="add-film-btn">Добавить фильм</button>
+                </p>
                 <div class="conf-step__movies" id="movies-list">
                 </div>
+
                 <div class="conf-step__timelines" id="hall-timelines">
                 </div>
-                <fieldset class="conf-step__buttons conf-step__buttons_centered">
-                    <button class="conf-step__button conf-step__button-regular">Отмена</button>
-                    <button class="conf-step__button conf-step__button-accent">Сохранить</button>
-                </fieldset>
+
+                <div class="conf-step__buttons">
+                    <button class="conf-step__button conf-step__button-regular" id="cancel-seances">ОТМЕНА</button>
+                    <button class="conf-step__button conf-step__button-accent" id="save-seances">СОХРАНИТЬ</button>
+                </div>
             </div>
         </section>
 
         <section class="conf-step">
             <header class="conf-step__header conf-step__header_opened">
-                <h2 class="conf-step__title">ОТКРЫТЬ ПРОДАЖИ</h2>
+                <h2 class="conf-step__title">открыть продажи</h2>
             </header>
             <div class="conf-step__wrapper">
-                <p class="conf-step__paragraph">Выберите зал для открытия/закрытия продаж:</p>
+                <p class="conf-step__paragraph" id="sales-paragraph">Выберите зал для открытия/закрытия продаж:</p>
                 <ul class="conf-step__selectors-list" id="sales-hall-selectors">
                 </ul>
                 <div class="conf-step__sales-status">
                     <p class="conf-step__paragraph conf-step__sales-ready">Всё готово к открытию</p>
-                    <button class="conf-step__button conf-step__button-accent conf-step__button-sales">ОТКРЫТЬ ПРОДАЖУ
-                        БИЛЕТОВ</button>
+                    <button class="conf-step__button conf-step__button-accent conf-step__button-sales">открыть продажи
+                        билетов</button>
                 </div>
             </div>
         </section>
     </main>
+
     <div class="modal" id="add-seance-modal" style="display: none;">
         <div class="modal__container">
             <div class="modal__content">
                 <div class="modal__header">
                     <h2 class="modal__title">Добавление сеанса</h2>
-                    <button class="modal__dismiss" id="modal-close">✕</button>
+                    <button class="modal__dismiss" id="modal-close">
+                        <img src="../img/cross.png" alt="Закрыть" width="22" height="22">
+                    </button>
                 </div>
                 <div class="modal__body">
                     <form id="modal-seance-form">
@@ -157,15 +168,38 @@
                             <input type="time" class="modal__input" id="modal-seance-time" required>
                         </div>
                         <div class="modal__footer">
-                            <button type="submit" class="conf-step__button conf-step__button-accent">Добавить</button>
+                            <button type="submit" class="conf-step__button conf-step__button-accent">ДОБАВИТЬ</button>
                             <button type="button" class="conf-step__button conf-step__button-regular"
-                                id="modal-cancel">Отмена</button>
+                                id="modal-cancel">ОТМЕНА</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="modal" id="confirm-modal" style="display: none;">
+        <div class="modal__container">
+            <div class="modal__content">
+                <div class="modal__header">
+                    <h2 class="modal__title" id="confirm-modal-title">Подтверждение</h2>
+                    <button class="modal__dismiss" id="confirm-close">
+                        <img src="../img/cross.png" alt="Закрыть" width="22" height="22">
+                    </button>
+                </div>
+                <div class="modal__body">
+                    <p class="conf-step__paragraph" id="confirm-modal-text"></p>
+                    <div class="modal__footer">
+                        <button class="conf-step__button conf-step__button-accent" id="confirm-ok">удалить</button>
+                        <button class="conf-step__button conf-step__button-regular"
+                            id="confirm-cancel">отменить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="ticket-sales.js" type="module"></script>
 </body>
 
 </html>

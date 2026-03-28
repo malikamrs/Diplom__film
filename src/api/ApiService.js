@@ -81,9 +81,10 @@ export default class ApiService {
      * @returns {Promise<{ halls: Array }>}
      */
     async addHall(hallName) {
+        const capitalizedName = hallName.charAt(0).toUpperCase() + hallName.slice(1);
         return this._request('/hall', {
             method: 'POST',
-            body: this._buildFormData({ hallName }),
+            body: this._buildFormData({ hallName: capitalizedName }),
         });
     }
 

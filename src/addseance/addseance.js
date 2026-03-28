@@ -1,4 +1,5 @@
 import ApiService from '../api/ApiService.js';
+import showAlert from '../api/Alert.js';
 
 const api = new ApiService();
 const BACK_URL = '../ticket-sales/ticket-sales.html';
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const option = document.createElement('option');
             option.value = hall.id;
             option.textContent = hall.hall_name;
-            hallSelect.appendChild(option);
+            hallSelect.append(option);
         });
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -40,11 +41,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const option = document.createElement('option');
             option.value = film.id;
             option.textContent = film.film_name;
-            filmSelect.appendChild(option);
+            filmSelect.append(option);
         });
     } catch (err) {
         console.error('Ошибка при загрузке данных:', err);
-        alert('Не удалось загрузить список залов или фильмов');
+        showAlert('Не удалось загрузить список залов или фильмов');
     }
 
     form.addEventListener('submit', async (e) => {
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const seanceTime = document.getElementById('seance-time').value;
 
         if (!seanceHallid || !seanceFilmid || !seanceTime) {
-            alert('Пожалуйста, заполните все поля');
+            showAlert('Пожалуйста, заполните все поля');
             return;
         }
 
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (message.includes('пересекается')) {
                 message += '\n\nСовет: Между сеансами должен быть перерыв хотя бы в 1 минуту (например, 18:31 вместо 18:30).';
             }
-            alert('Ошибка при добавлении сеанса: ' + message);
+            showAlert('Ошибка при добавлении сеанса: ' + message);
             submitBtn.disabled = false;
             submitBtn.textContent = 'Добавить сеанс';
         }

@@ -168,8 +168,8 @@ body {
 }
 
 .hall__seat {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
     border: 1px solid #525252;
     cursor: default;
@@ -199,6 +199,7 @@ body {
     background-color: transparent;
     border-color: transparent;
     cursor: default;
+    border-color: #525252;
 }
 
 .hall__seat--selected {
@@ -265,7 +266,7 @@ body {
 
 .hall__booking {
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 25px 20px;
+    padding: 25px;
     display: flex;
     justify-content: center;
 }
@@ -297,7 +298,7 @@ body {
     opacity: 0.7;
 }
 
-@media (min-width: 391px) and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 900px) {
     .header {
         padding: 15px 20px 15px;
     }
@@ -309,11 +310,6 @@ body {
 
     .hall__hint {
         display: flex;
-    }
-
-    .hall__seat {
-        width: 22px;
-        height: 22px;
     }
 
     .hall__row {
@@ -333,25 +329,11 @@ body {
     .hall__legend {
         gap: 12px;
     }
-
-    .hall__legend-text {
-        font-size: 13px;
-    }
-
-    .hall__booking {
-        padding: 25px 20px;
-    }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 767px) {
     .header {
         padding: 14px;
-    }
-
-    .logo {
-        font-size: 34px;
-        line-height: 39px;
-        font-weight: 900;
     }
 
     .hall {
@@ -369,20 +351,8 @@ body {
 
     .hall__movie-title {
         width: 245px;
-        font-size: 16px;
-        line-height: 18px;
         margin-bottom: 6px;
         margin-right: 23.4px;
-    }
-
-    .hall__time {
-        font-size: 14px;
-        line-height: 16px;
-    }
-
-    .hall__title {
-        font-size: 16px;
-        line-height: 18px;
     }
 
     .hall__hint-icon {
@@ -390,34 +360,22 @@ body {
         height: 32px;
    }
 
-    .hall__hint-text {
-        font-size: 14px;
-        line-height: 16px;
-        font-weight: 300;
-    }
-
     .hall__hint {
         margin-left: 10px;
     }
 
-    .hall__seat {
-        width: 16px;
-        height: 16px;
-        border-radius: 2px;
-    }
-
     .hall__row {
-        gap: 2px;
+        gap: 4px;
     }
 
     .hall__seats {
-        gap: 2px;
-        padding-top: 20px;
+        gap: 4px;
+        padding-top: 30px;
         margin-bottom: 20px;
     }
 
     .hall__screen-section {
-        padding: 10px 10px;
+        padding: 15px 30px;
         overflow-x: hidden;
     }
 
@@ -426,22 +384,13 @@ body {
     }
 
     .hall__legend-seat {
-        width: 16px;
-        height: 16px;
-    }
-
-    .hall__legend-text {
-        font-size: 11px;
-    }
-
-    .hall__booking {
-        padding: 25px 20px;
+        width: 20px;
+        height: 20px;
     }
 
     .hall__booking-btn {
         width: 100%;
         max-width: 232px;
         height: 36px;
-        font-size: 12px;
     }
 }

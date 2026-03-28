@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="payment.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" defer></script>
-    <script src="QRCreator.js" type="module" defer></script>
+    <script src="QRCreator.js"></script>
+    <script src="ticket.js" defer></script>
 </head>
 
 <body>
@@ -29,29 +29,27 @@
 
                 <div class="ticket__frame">
                     <div class="ticket__bottom">
-                        <div class="ticket__content">
-                            <div class="ticket__details">
-                                <p class="ticket__row">
-                                    На фильм:
-                                    <span class="ticket__movie-title" id="ticket-movie">Загрузка...</span>
-                                </p>
-                                <p class="ticket__row">
-                                    Места:
-                                    <span class="ticket__value" id="ticket-seats">--</span>
-                                </p>
-                                <p class="ticket__row">
-                                    В зале:
-                                    <span class="ticket__value" id="ticket-hall">--</span>
-                                </p>
-                                <p class="ticket__row">
-                                    Начало сеанса:
-                                    <span class="ticket__value" id="ticket-time">--:--</span>
-                                </p>
-                            </div>
 
-                            <div class="ticket__qr">
-                                <img id="ticket-qr-img" class="ticket__qr-img" src="proba.svg" alt="QR-код билета">
-                            </div>
+                        <div class="ticket__details">
+                            <p class="ticket__row">
+                                На фильм:
+                                <span class="ticket__movie-title" id="ticket-movie">Загрузка...</span>
+                            </p>
+                            <p class="ticket__row">
+                                Места:
+                                <span class="ticket__value" id="ticket-seats">--</span>
+                            </p>
+                            <p class="ticket__row">
+                                В зале:
+                                <span class="ticket__value" id="ticket-hall">--</span>
+                            </p>
+                            <p class="ticket__row">
+                                Начало сеанса:
+                                <span class="ticket__value" id="ticket-time">--:--</span>
+                            </p>
+                        </div>
+
+                        <div class="ticket__qr" id="ticket-qr-container">
                         </div>
 
                         <p class="ticket__notice ticket__notice--top">

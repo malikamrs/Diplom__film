@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const seats =
       Array.isArray(data.seats) && data.seats.length > 0
         ? data.seats
-            .map((seat) => {
-              const row = Number(seat.row);
-              const place = Number(seat.place);
-              if (!Number.isFinite(row) || !Number.isFinite(place)) {
-                return null;
-              }
-              return `${row}/${place}`;
-            })
-            .filter((value) => value !== null)
-            .join(', ')
+          .map((seat) => {
+            const row = Number(seat.row);
+            const place = Number(seat.place);
+            if (!Number.isFinite(row) || !Number.isFinite(place)) {
+              return null;
+            }
+            return `${row}/${place}`;
+          })
+          .filter((value) => value !== null)
+          .join(', ')
         : '--';
 
     const hallName =
@@ -101,9 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (buttonEl) {
     buttonEl.addEventListener('click', () => {
-      const bookingCode = getOrCreateBookingCode();
-      console.log('Код бронирования:', bookingCode);
-      window.location.href = './ticket.html';
+      sessionStorage.removeItem('ticketCode');
+
+      buttonEl.disabled = true;
+      buttonEl.textContent = 'ОФОРМЛЯЕМ...';
+      setTimeout(() => {
+        window.location.href = './ticket.html';
+      }, 300);
     });
   }
 });

@@ -1,4 +1,5 @@
 import ApiService from '../api/ApiService.js';
+import showAlert from '../api/Alert.js';
 
 const api = new ApiService();
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.assign('../ticket-sales/ticket-sales.html');
 
         } catch (error) {
-            alert('Ошибка авторизации: ' + error.message);
+            showAlert('Ошибка авторизации: ' + error.message);
         }
     });
 });
