@@ -59,19 +59,25 @@ document.addEventListener('DOMContentLoaded', function () {
     var seatsEl = document.getElementById('ticket-seats');
     var hallEl = document.getElementById('ticket-hall');
     var timeEl = document.getElementById('ticket-time');
+    var dateEl = document.getElementById('ticket-date');
+    var costEl = document.getElementById('ticket-cost');
 
     if (movieEl) movieEl.textContent = filmName;
     if (seatsEl) seatsEl.textContent = seatsShort;
     if (hallEl) hallEl.textContent = hallDisplay;
     if (timeEl) timeEl.textContent = seanceTime;
+    if (dateEl) dateEl.textContent = seanceDate;
+    if (costEl) costEl.textContent = totalCost;
 
     var qrText = [
-        seanceDate + ' ' + seanceTime,
-        filmName,
-        hallName,
-        rowsForQR + '/' + placesForQR,
-        totalCost,
-        'Билет действителен'
+        'Дата: ' + seanceDate,
+        'Время: ' + seanceTime,
+        'Фильм: ' + filmName,
+        'Зал: ' + hallDisplay,
+        'Ряд: ' + rowsForQR,
+        'Место: ' + placesForQR,
+        'Стоимость: ' + totalCost + ' руб.',
+        'Билет действителен строго на свой сеанс'
     ].join('\n');
 
     var container = document.getElementById('ticket-qr-container');

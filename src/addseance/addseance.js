@@ -4,6 +4,44 @@ import showAlert from '../api/Alert.js';
 const api = new ApiService();
 const BACK_URL = '../ticket-sales/ticket-sales.html';
 
+let filmsData = [];
+let seancesData = [];
+
+function timeToMin(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 60 + m;
+}
+
+function minToTime(minutes) {
+    const h = Math.floor(minutes / 60) % 24;
+    const m = minutes % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
+
+function checkSeanceOverlap(hallId, filmId, newTime) {
+    const newFilm = filmsData.find(f => f.id == filmId);
+    if (!newFilm) return null;
+
+    const newStart = timeToMin(newTime);
+    const newEnd = newStart + Number(newFilm.film_duration);
+
+    const hallSeances = seancesData.filter(s => s.seance_hallid == hallId);
+
+    for (const existing of hallSeances) {
+        const existingFilm = filmsData.find(f => f.id == existing.seance_filmid);
+        if (!existingFilm) continue;
+
+        const existStart = timeToMin(existing.seance_time);
+        const existEnd = existStart + Number(existingFilm.film_duration);
+
+        if (newStart < existEnd && existStart < newEnd) {
+            return `Сеанс пересекается с фильмом "${existingFilm.film_name}" (${existing.seance_time} — ${minToTime(existEnd)}). Выберите другое время.`;
+        }
+    }
+
+    return null;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('add-seance-form');
     const cancelBtn = document.getElementById('cancel-btn');
@@ -22,7 +60,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const data = await api.getAllData();
         const halls = data.halls || [];
-        const films = data.films || [];
+        filmsData = data.films || [];
+        seancesData = data.seances || [];
 
         halls.forEach(hall => {
             const option = document.createElement('option');
@@ -37,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             hallSelect.value = preselectedHallId;
         }
 
-        films.forEach(film => {
+        filmsData.forEach(film => {
             const option = document.createElement('option');
             option.value = film.id;
             option.textContent = film.film_name;
@@ -57,6 +96,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!seanceHallid || !seanceFilmid || !seanceTime) {
             showAlert('Пожалуйста, заполните все поля');
+            return;
+        }
+
+        const overlapError = checkSeanceOverlap(seanceHallid, seanceFilmid, seanceTime);
+        if (overlapError) {
+            showAlert(overlapError);
             return;
         }
 

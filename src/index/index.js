@@ -22,7 +22,7 @@ function renderDayNav() {
         const prevLink = document.createElement('a');
         prevLink.classList.add('page-nav__day', 'page-nav__day_prev-arrow');
         prevLink.href = '#';
-        prevLink.textContent = '<'; // Добавляем символ
+        prevLink.textContent = '<';
         prevLink.addEventListener('click', (e) => {
             e.preventDefault();
             startDateOffset--;
@@ -127,25 +127,26 @@ async function loadMovies() {
     try {
         const data = await api.getAllData();
         const { halls, films, seances } = data;
-        const openHalls = halls.filter((h) => h.hall_open === 1);
+        const openHalls = halls.filter((h) => Number(h.hall_open) === 1);
 
         if (openHalls.length === 0) {
             renderNoData('Нет доступных залов');
             return;
         }
 
-        const openHallIds = new Set(openHalls.map((h) => h.id));
-        const activeSeances = seances.filter((s) => openHallIds.has(s.seance_hallid));
+        const openHallIds = new Set(openHalls.map((h) => Number(h.id)));
+        const activeSeances = seances.filter((s) => openHallIds.has(Number(s.seance_hallid)));
 
         const filmSeancesMap = new Map();
         activeSeances.forEach((seance) => {
-            if (!filmSeancesMap.has(seance.seance_filmid)) {
-                filmSeancesMap.set(seance.seance_filmid, []);
+            const filmId = Number(seance.seance_filmid);
+            if (!filmSeancesMap.has(filmId)) {
+                filmSeancesMap.set(filmId, []);
             }
-            filmSeancesMap.get(seance.seance_filmid).push(seance);
+            filmSeancesMap.get(filmId).push(seance);
         });
 
-        const filmsWithSeances = films.filter((f) => filmSeancesMap.has(f.id));
+        const filmsWithSeances = films.filter((f) => filmSeancesMap.has(Number(f.id)));
 
         if (filmsWithSeances.length === 0) {
             renderNoData('Нет доступных сеансов');
@@ -168,14 +169,15 @@ function renderMovies(films, filmSeancesMap, halls) {
     const isToday = formatDate(now) === dateStr;
 
     films.forEach((film) => {
-        const seances = filmSeancesMap.get(film.id) || [];
+        const seances = filmSeancesMap.get(Number(film.id)) || [];
 
         const hallSeancesMap = new Map();
         seances.forEach((s) => {
-            if (!hallSeancesMap.has(s.seance_hallid)) {
-                hallSeancesMap.set(s.seance_hallid, []);
+            const hallId = Number(s.seance_hallid);
+            if (!hallSeancesMap.has(hallId)) {
+                hallSeancesMap.set(hallId, []);
             }
-            hallSeancesMap.get(s.seance_hallid).push(s);
+            hallSeancesMap.get(hallId).push(s);
         });
 
         const section = document.createElement('section');
@@ -221,7 +223,7 @@ function renderMovies(films, filmSeancesMap, halls) {
         section.append(infoDiv);
 
         halls.forEach((hall) => {
-            const hallSeances = hallSeancesMap.get(hall.id);
+            const hallSeances = hallSeancesMap.get(Number(hall.id));
             if (!hallSeances || hallSeances.length === 0) return;
             hallSeances.sort((a, b) => a.seance_time.localeCompare(b.seance_time));
 
@@ -249,8 +251,7 @@ function renderMovies(films, filmSeancesMap, halls) {
 
                     if (seanceDate < now) {
                         link.classList.add('movie__seance--past');
-                        link.style.opacity = '0.4';
-                        link.style.pointerEvents = 'none';
+                        link.addEventListener('click', (e) => e.preventDefault());
                     }
                 }
 

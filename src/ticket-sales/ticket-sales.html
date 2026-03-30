@@ -13,7 +13,11 @@
 
 <body>
     <header class="header">
-        <h1 class="logo">Идём<span>В</span>Кино<br><span class="logo__subtext">Администраторррская</span></h1>
+        <h1 class="logo">
+            <a href="../index/index.html" style="text-decoration: none; color: inherit;">
+                Идём<span>В</span>Кино<br><span class="logo__subtext">Администраторррская</span>
+            </a>
+        </h1>
     </header>
 
     <main class="admin-content">
@@ -82,7 +86,7 @@
                 <div class="conf-step__price-legend">
                     <div class="conf-step__price-wrapper">
                         <label class="conf-step__label">Цена, рублей
-                            <input type="number" class="conf-step__input conf-step__input_standard" placeholder="0" id="price-standard" min="0">
+                            <input type="number" class="conf-step__input conf-step__input_standard" placeholder="0" id="price-standard" min="1">
                         </label>
                         <div class="conf-step__price-info conf-step__price-info_standard">
                             за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
@@ -90,7 +94,7 @@
                     </div>
                     <div class="conf-step__price-wrapper">
                         <label class="conf-step__label">Цена, рублей
-                            <input type="number" class="conf-step__input conf-step__input_vip" placeholder="0" id="price-vip" min="0">
+                            <input type="number" class="conf-step__input conf-step__input_vip" placeholder="0" id="price-vip" min="1">
                         </label>
                         <div class="conf-step__price-info conf-step__price-info_vip">
                             за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла

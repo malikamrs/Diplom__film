@@ -17,7 +17,7 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url('../img/background-for-log-in.jpg') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: scroll;
     min-height: 100vh;
     padding-bottom: 80px;
 }
@@ -369,7 +369,6 @@ body {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 19px;
-    margin-right: -19px;
     color: #000000;
     text-transform: uppercase;
     white-space: nowrap;
@@ -632,7 +631,7 @@ body {
 
 .modal__container {
     width: 90%;
-    max-width: 500px;
+    max-width: 620px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -846,13 +845,6 @@ body {
         padding-bottom: 36px;
     }
 
-    .conf-step__hall::before {
-        font-size: 12px;
-        letter-spacing: 12px;
-        margin-right: -12px;
-        top: 15px;
-    }
-
     .conf-step__chair {
         width: 22px;
         height: 22px;
@@ -861,9 +853,22 @@ body {
     .conf-step__buttons {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
-        margin-top: 10px;
-        margin-bottom: 50px;
+        gap: 15px;
+        margin-top: 20px; 
+        margin-bottom: 20px; 
+    }
+
+    .conf-step__price-legend + .conf-step__buttons {
+        margin-top: 30px; 
+        margin-bottom: 10px; 
+    }
+    .conf-step__hall + .conf-step__buttons {
+        margin-top: 20px;  
+        margin-bottom: 15px; 
+    }
+    #hall-timelines + .conf-step__buttons {
+        margin-top: 10px; 
+        margin-bottom: 40px; 
     }
 
     .conf-step__button {
@@ -873,6 +878,11 @@ body {
         margin-left: auto;
         margin-right: auto;
         padding: 12px 32px;
+    }
+
+    .conf-step__buttons .conf-step__button {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     #add-film-btn {
@@ -912,11 +922,6 @@ body {
     .conf-step__timelines {
         margin: 0;
     }
-
-    .conf-step__timeline-bar {
-        height: 50px;
-    }
-
 
     .conf-step__button-sales {
         width: 100%;

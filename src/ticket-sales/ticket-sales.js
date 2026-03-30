@@ -33,7 +33,7 @@ function showConfirm(text, title = 'Подтверждение', okLabel = 'УД
         okBtn.textContent = okLabel;
         cancelBtn.style.display = showCancel ? 'inline-block' : 'none';
 
-        modal.style.display = 'flex';
+        modal.style.display = 'block';
 
         const cleanup = (result) => {
             modal.style.display = 'none';
@@ -102,7 +102,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const selectedHall = hallsData.find(h => h.id === hallId);
         if (selectedHall) {
             document.getElementById('price-standard').value = selectedHall.hall_price_standart || 0;
-            document.getElementById('price-vip').value = selectedHall.hall_price_vip || 0;
+            document.getElementById('price-vip').value = selectedHall.hall_price_vip || 350;
+        }
+    });
+
+    ['price-standard', 'price-vip'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.includes('-')) {
+                    e.target.value = e.target.value.replace(/-/g, '');
+                }
+            });
         }
     });
 
@@ -176,6 +187,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const prStandard = parseInt(document.getElementById('price-standard').value);
         const prVip = parseInt(document.getElementById('price-vip').value);
 
+        if (isNaN(prStandard) || prStandard <= 0) {
+            return showConfirm('Цена за обычное кресло должна быть положительным числом.', 'Ошибка', 'ОК', false);
+        }
+        if (isNaN(prVip) || prVip <= 0) {
+            return showConfirm('Цена за VIP кресло должна быть положительным числом.', 'Ошибка', 'ОК', false);
+        }
+
         try {
             await api.updateHallPrice(hallId, prStandard, prVip);
             showConfirm('Цены успешно сохранены!', 'Успех', 'ОК', false);
@@ -227,24 +245,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     salesBtn?.addEventListener('click', async () => {
         const hallId = salesSelectors.querySelector('input:checked')?.value;
+        if (!hallId) return;
         const hall = hallsData.find(h => h.id == hallId);
         if (!hall) return;
 
-        const newStatus = hall.hall_open === 1 ? 0 : 1;
+        const newStatus = Number(hall.hall_open) === 1 ? 0 : 1;
 
+        hall.hall_open = newStatus;
+        updateSalesStatusUI(hall);
+        
         salesBtn.disabled = true;
-        salesBtn.textContent = 'Сохранение...';
 
         try {
-            const updatedHall = await api.toggleHallOpen(hallId, newStatus);
-            const index = hallsData.findIndex(h => h.id == hallId);
-            if (index !== -1) {
-                hallsData[index] = updatedHall;
+            await api.toggleHallOpen(hallId, newStatus);
+            
+            const freshData = await api.getAllData();
+            hallsData = freshData.halls || [];
+            
+            const updatedHall = hallsData.find(h => h.id == hallId);
+            if (updatedHall) {
                 updateSalesStatusUI(updatedHall);
             }
-
-            showConfirm(newStatus === 1 ? 'Продажи открыты!' : 'Продажи приостановлены!', 'Статус продаж', 'ОК', false);
         } catch (err) {
+            hall.hall_open = newStatus === 1 ? 0 : 1;
+            updateSalesStatusUI(hall);
             showConfirm('Ошибка: ' + err.message, 'Ошибка', 'ОК', false);
         } finally {
             salesBtn.disabled = false;
@@ -381,30 +405,57 @@ function renderTimelines() {
     ];
 
     container.innerHTML = hallsData.map(hall => {
-        const hSeances = allSeances.filter(s => s.seance_hallid == hall.id);
-        const seanceBlocks = hSeances.map(s => {
+        let hSeances = allSeances.filter(s => s.seance_hallid == hall.id);
+        
+        hSeances.sort((a,b) => timeToMin(a.seance_time) - timeToMin(b.seance_time));
+
+        let lastBlockEnd = -999;
+        const timeLabelsData = [];
+
+        const containerWidth = document.querySelector('.conf-step__timeline-bar')?.clientWidth || window.innerWidth;
+        const minLabelGap = (35 / containerWidth) * 100; 
+        const minBlockWidth = (24 / containerWidth) * 100; 
+        const blockGap = (10 / containerWidth) * 100; 
+
+        const seanceBlocks = hSeances.map((s, index) => {
             const film = filmsData.find(f => f.id == s.seance_filmid);
             if (!film) return '';
-            const left = (timeToMin(s.seance_time) / 1440 * 100).toFixed(2);
-            const width = (film.film_duration / 1440 * 100).toFixed(2);
+            
+            let visualLeft = (timeToMin(s.seance_time) / 1440 * 100);
+            let visualWidth = (Number(film.film_duration) / 1440 * 100);
+
+            if (visualLeft < lastBlockEnd + blockGap) {
+                visualLeft = lastBlockEnd + blockGap;
+            }
+            
+            const actualRenderedWidth = Math.max(visualWidth, minBlockWidth);
+            lastBlockEnd = visualLeft + actualRenderedWidth;
+
+            timeLabelsData.push({ time: s.seance_time, left: visualLeft });
+
             const color = FILM_COLORS[filmsData.indexOf(film) % FILM_COLORS.length];
             const isTemp = String(s.id).startsWith('temp_');
 
             return `<div class="conf-step__seance" draggable="true" data-id="${s.id}" 
-                         style="left:${left}%; width:${width}%; background-color:${color}; overflow:hidden; ${isTemp ? 'outline:2px dashed #000' : ''}">
+                         style="left:${visualLeft.toFixed(2)}%; width:${visualWidth.toFixed(2)}%; background-color:${color}; overflow:hidden; ${isTemp ? 'outline:2px dashed #000' : ''}">
                         <span class="conf-step__seance-title">${film.film_name}</span>
                     </div>`;
         }).join('');
 
-        const timeSet = new Set();
-        hSeances.forEach(s => {
-            const film = filmsData.find(f => f.id == s.seance_filmid);
-            if (film) timeSet.add(s.seance_time);
+        let lastLabelLeft = -999;
+        
+        const uniqueTimes = [];
+        timeLabelsData.forEach(item => {
+            if (!uniqueTimes.find(u => u.time === item.time)) uniqueTimes.push(item);
         });
-        const sortedTimes = [...timeSet].sort();
-        const timeLabels = sortedTimes.map(t => {
-            const leftPos = (timeToMin(t) / 1440 * 100).toFixed(2);
-            return `<span class="conf-step__time-label" style="left:${leftPos}%">${t}</span>`;
+
+        const timeLabels = uniqueTimes.map(item => {
+            let labelLeft = item.left;
+            if (labelLeft < lastLabelLeft + minLabelGap) {
+                labelLeft = lastLabelLeft + minLabelGap;
+            }
+            lastLabelLeft = labelLeft;
+            return `<span class="conf-step__time-label" style="left:${labelLeft.toFixed(2)}%">${item.time}</span>`;
         }).join('');
 
         const capitalizedName = hall.hall_name.charAt(0).toUpperCase() + hall.hall_name.slice(1);
@@ -459,29 +510,96 @@ function openAddSeanceModal(hallId, hallName, filmId, filmName) {
     document.getElementById('modal-hall-id').value = hallId;
     document.getElementById('modal-film-name').value = filmName;
     document.getElementById('modal-film-id').value = filmId;
-    document.getElementById('modal-seance-time').value = '10:00';
-    modal.style.display = 'flex';
+
+    const hallSeances = [
+        ...seancesData.filter(s => s.seance_hallid == hallId && !seancesToDelete.includes(s.id)),
+        ...seancesToAdd.filter(s => s.hallId == hallId).map(s => ({
+            seance_filmid: parseInt(s.filmId),
+            seance_time: s.time
+        }))
+    ];
+    let defaultTime = '00:00';
+    if (hallSeances.length > 0) {
+        let maxEnd = 0;
+        hallSeances.forEach(s => {
+            const f = filmsData.find(f => f.id == s.seance_filmid);
+            if (f) {
+                const end = timeToMin(s.seance_time) + Number(f.film_duration);
+                if (end > maxEnd) maxEnd = end;
+            }
+        });
+        if (maxEnd < 1440) {
+            defaultTime = minToTime(maxEnd);
+        }
+    }
+    document.getElementById('modal-seance-time').value = defaultTime;
+
+    modal.style.display = 'block';
 
     document.getElementById('modal-close').onclick = () => modal.style.display = 'none';
     document.getElementById('modal-cancel').onclick = () => modal.style.display = 'none';
     document.getElementById('modal-seance-form').onsubmit = (e) => {
         e.preventDefault();
+        const newTime = document.getElementById('modal-seance-time').value;
+
+        const overlapError = checkSeanceOverlap(hallId, filmId, newTime);
+        if (overlapError) {
+            showConfirm(overlapError, 'Наложение сеансов', 'ОК', false);
+            return;
+        }
+
         seancesToAdd.push({
             tempId: 'temp_' + Date.now(),
             hallId, filmId,
-            time: document.getElementById('modal-seance-time').value
+            time: newTime
         });
         modal.style.display = 'none';
         renderTimelines();
     };
 }
 
+function checkSeanceOverlap(hallId, filmId, newTime) {
+    const newFilm = filmsData.find(f => f.id == filmId);
+    if (!newFilm) return null;
+
+    const newStart = timeToMin(newTime);
+    const newEnd = newStart + Number(newFilm.film_duration);
+
+    const hallSeances = [
+        ...seancesData.filter(s => s.seance_hallid == hallId && !seancesToDelete.includes(s.id)),
+        ...seancesToAdd.filter(s => s.hallId == hallId).map(s => ({
+            seance_filmid: parseInt(s.filmId),
+            seance_time: s.time
+        }))
+    ];
+
+    for (const existing of hallSeances) {
+        const existingFilm = filmsData.find(f => f.id == existing.seance_filmid);
+        if (!existingFilm) continue;
+
+        const existStart = timeToMin(existing.seance_time);
+        const existEnd = existStart + Number(existingFilm.film_duration);
+
+        if (newStart < existEnd && existStart < newEnd) {
+            return `Сеанс пересекается с фильмом "${existingFilm.film_name}" (${existing.seance_time} — ${minToTime(existEnd)}). Выберите другое время.`;
+        }
+    }
+
+    return null;
+}
+
+function minToTime(minutes) {
+    const h = Math.floor(minutes / 60) % 24;
+    const m = minutes % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
+
 function updateSalesStatusUI(hall) {
     const btn = document.querySelector('.conf-step__button-sales');
     const text = document.querySelector('.conf-step__sales-ready');
     if (!btn || !text) return;
-    text.textContent = hall.hall_open === 1 ? 'Продажа билетов открыта' : 'Всё готово к открытию';
-    btn.textContent = hall.hall_open === 1 ? 'ПРИОСТАНОВИТЬ ПРОДАЖУ БИЛЕТОВ' : 'ОТКРЫТЬ ПРОДАЖУ БИЛЕТОВ';
+    text.textContent = Number(hall.hall_open) === 1 ? 'Продажа билетов открыта' : 'Всё готово к открытию';
+    btn.textContent = Number(hall.hall_open) === 1 ? 'ПРИОСТАНОВИТЬ ПРОДАЖУ БИЛЕТОВ' : 'ОТКРЫТЬ ПРОДАЖУ БИЛЕТОВ';
 }
 
 function timeToMin(t) {

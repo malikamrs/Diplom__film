@@ -12,9 +12,12 @@
     font-family: "Roboto", "OpenSans", "Arial", sans-serif;
 }
 
-html,
-body {
+html {
     height: 100%;
+}
+body {
+    min-height: 100vh;
+    background-color: #000;
 }
 
 body {
@@ -22,7 +25,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -310,6 +313,10 @@ body {
 }
 
 @media screen and (max-width: 767px) {
+    body {
+        padding-bottom: 250px;
+    }
+
     .header {
         max-width: 100%;
         padding: 0 10px;
