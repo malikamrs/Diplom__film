@@ -4,7 +4,7 @@
 
 ## 🔗 Ссылка на проект
 
-👉 **[Открыть проект на GitHub Pages](https://malikamrs.github.io/Diplom__film/src/index.html)**
+👉 **[Открыть проект на GitHub Pages](https://malikamrs.github.io/Diplom__film/)** 
 
 ## 📋 О проекте
 
