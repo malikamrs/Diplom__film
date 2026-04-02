@@ -24,36 +24,25 @@ body {
 }
 
 .header {
-    width: 972px;
-    padding: 35px 42px 35px 104px;
+    width: 100%;
+    max-width: 972px;
     margin: 0 auto;
     text-align: left;
+    box-sizing: border-box;
+    padding: 35px 42px 35px 104px;
 }
 
 .logo {
-    font-size: 34px;
-    line-height: 39px;
-    color: #fff;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-decoration: none;
+    display: block;
+    overflow: hidden;
+}
+
+.logo__image {
+    max-width: none;
+    width: auto;
+    height: auto;
     display: block;
 }
-
-.logo span {
-    font-weight: 100;
-}
-
-.logo__subtext {
-    color: #fff;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-weight: 400;
-    display: block;
-    margin-top: 0px;
-}
-
 .login {
     width: 100%;
     max-width: 480px;
@@ -151,22 +140,16 @@ body {
 }
 
 @media screen and (min-width: 768px) and (max-width: 900px) {
-    .header {
-        padding: 14px;
-    }
+   .header {
+    padding: 14px;
+}
+
 }
 
 @media screen and (max-width: 767px) {
-    body {
-        padding-bottom: 250px;
-    }
 
-    .header {
-        padding: 14px;
-    }
-
-    .login {
-        max-width: 100%;
+     .header {
+    padding: 14px;
     }
 
     .login__wrapper {

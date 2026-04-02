@@ -176,8 +176,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     document.getElementById('cancel-hall-config')?.addEventListener('click', () => {
-        const selectEvent = new Event('change', { bubbles: true });
-        document.getElementById('hall-selectors')?.dispatchEvent(selectEvent);
+        const checkedRadio = document.querySelector('input[name="chairs-hall"]:checked');
+        if (checkedRadio) checkedRadio.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
     document.getElementById('save-hall-prices')?.addEventListener('click', async () => {
@@ -205,8 +205,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     document.getElementById('cancel-hall-prices')?.addEventListener('click', () => {
-        const selectEvent = new Event('change', { bubbles: true });
-        document.getElementById('price-hall-selectors')?.dispatchEvent(selectEvent);
+        const checkedRadio = document.querySelector('input[name="prices-hall"]:checked');
+        if (checkedRadio) checkedRadio.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
     document.getElementById('save-seances')?.addEventListener('click', async () => {

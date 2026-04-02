@@ -15,7 +15,8 @@
 }
 
 html {
-    height: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
 }
 body {
     min-height: 100vh;
@@ -23,8 +24,7 @@ body {
 }
 
 body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url('../img/backgroun-cinema.jpg') no-repeat center center;
+    background: url('../img/backgroun-cinema.jpg') no-repeat center center;
     background-size: cover;
     background-attachment: scroll;
     min-height: 100vh;
@@ -37,24 +37,7 @@ body {
     align-items: center;
     max-width: 962px;
     margin: 0 auto;
-    padding-top: 20px;
-}
-
-.logo {
-    font-family: 'Roboto', sans-serif;
-    font-size: 34px;
-    line-height: 39px;
-    color: #fff;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    text-decoration: none;
-}
-
-.logo span {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
-    margin: 0;
+    padding: 14px;
 }
 
 .hall {
@@ -134,8 +117,9 @@ body {
 .hall__screen-wrapper {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 284px;
     z-index: 1;
 }
 
@@ -301,9 +285,6 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 900px) {
-    .header {
-        padding: 15px 20px 15px;
-    }
 
     .hall {
         margin: 0;
@@ -334,13 +315,6 @@ body {
 }
 
 @media (max-width: 767px) {
-    body {
-        padding-bottom: 250px;
-    }
-
-    .header {
-        padding: 14px;
-    }
 
     .hall {
         margin: 0;

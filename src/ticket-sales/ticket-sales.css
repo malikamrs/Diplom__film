@@ -19,7 +19,6 @@ body {
     background-size: cover;
     background-attachment: scroll;
     min-height: 100vh;
-    padding-bottom: 80px;
 }
 
 .header {
@@ -28,31 +27,6 @@ body {
     height: 120px;
     padding: 35px 42px 35px 104px;
     margin: 0 auto;
-}
-
-.logo {
-    font-size: 34px;
-    line-height: 39px;
-    color: #fff;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: block;
-}
-
-.logo span {
-    font-weight: 100;
-}
-
-.logo__subtext {
-    color: #fff;
-    font-size: 10px;
-    line-height: 12px;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-weight: 400;
-    display: block;
-    margin-top: 0px;
 }
 
 .admin-content {
@@ -727,19 +701,7 @@ body {
     background-color: rgba(22, 166, 175, 0.2);
 }
 
-@media screen and (min-width: 768px) and (max-width: 900px) {
-
-    .header {
-        width: 100%;
-    }
-}
-
 @media screen and (max-width: 767px) {
-    .header {
-        width: 100%;
-        height: auto;
-        padding: 35px 42px 35px 104px;
-    }
 
     .admin-content {
         width: 100%;
@@ -926,5 +888,47 @@ body {
     .conf-step__button-sales {
         width: 100%;
         max-width: 280px;
+    }
+
+    .modal__container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .modal__content {
+        border-radius: 0;
+    }
+
+    .modal__body {
+        padding: 15px 10px 35px;
+    }
+
+    .modal__footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .modal__footer .conf-step__button {
+        width: 200px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+    .modal__container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .modal__content {
+        border-radius: 0;
+    }
+
+    .modal__body {
+        padding: 30px 10px;
     }
 }

@@ -48,8 +48,11 @@
             text-transform: uppercase;
         }
 
-        .ticket-info__logo span {
-            font-weight: 100;
+        .ticket-info__logo-img {
+            max-width: 60vw;
+            height: auto;
+            max-height: 30px;
+            object-fit: contain;
         }
 
         .ticket-info__body {
@@ -117,7 +120,7 @@
 <body>
     <div class="ticket-info">
         <div class="ticket-info__header">
-            <div class="ticket-info__logo">Идём<span>в</span>кино</div>
+            <div class="ticket-info__logo"><img src="../img/Logo.png" alt="ИдёмВКино" class="ticket-info__logo-img"></div>
         </div>
         <div class="ticket-info__body">
             <h1 class="ticket-info__title">Электронный билет</h1>
