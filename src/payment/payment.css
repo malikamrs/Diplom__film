@@ -28,6 +28,8 @@ body {
     background-attachment: scroll;
     min-height: 100vh;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
@@ -37,7 +39,7 @@ body {
     max-width: 962px;
     width: 100%;
     margin: 0 auto;
-    padding: 35px 42px 35px 104px;
+    padding: 14px;
     box-sizing: border-box;
 }
 
@@ -312,8 +314,9 @@ body {
 }
 
 @media screen and (max-width: 767px) {
-    .header {
-        padding: 14px;
+    .payment__wrapper {
+        align-items: flex-start;
+        padding-bottom: 250px;
     }
 
     .ticket {
